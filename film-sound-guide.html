@@ -1,0 +1,1387 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Film Sound & Music Terminology Guide</title>
+    <style>
+        :root {
+            --primary-color: #333;
+            --secondary-color: #f5f5f7;
+            --accent-color: #e63946;
+            --card-bg: #ffffff;
+            --text-color: #333;
+            --border-color: #e0e0e0;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Arial, sans-serif;
+            line-height: 1.6;
+            background-color: var(--secondary-color);
+            color: var(--text-color);
+            margin: 0;
+            padding: 0;
+        }
+
+        header {
+            background-color: #333;
+            color: white;
+            padding: 1.5rem 0;
+            text-align: center;
+            background-image: linear-gradient(to right, #434343, #000000);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        h1 {
+            font-size: 2rem;
+            margin: 0;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 1.5rem;
+            display: flex;
+            gap: 2rem;
+        }
+
+        .sidebar {
+            width: 250px;
+            position: sticky;
+            top: 6rem;
+            align-self: flex-start;
+            height: calc(100vh - 6rem);
+            overflow-y: auto;
+        }
+
+        .main-content {
+            flex: 1;
+        }
+
+        .section {
+            margin-bottom: 2rem;
+        }
+
+        h2 {
+            border-bottom: 2px solid var(--accent-color);
+            padding-bottom: 0.5rem;
+            margin-top: 2rem;
+            color: var(--primary-color);
+        }
+
+        .term-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .term-card {
+            background-color: var(--card-bg);
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .term-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+        }
+
+        .term-header {
+            background-color: var(--accent-color);
+            color: white;
+            padding: 0.7rem 1rem;
+            font-weight: bold;
+            font-size: 1.1rem;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .term-content {
+            padding: 1rem;
+        }
+
+        .description {
+            margin-bottom: 0.8rem;
+        }
+
+        .example {
+            font-style: italic;
+            border-left: 3px solid var(--accent-color);
+            padding-left: 0.8rem;
+            color: #666;
+            font-size: 0.9rem;
+        }
+        
+        .example-heading {
+            font-weight: bold;
+            font-style: normal;
+            display: block;
+            margin-bottom: 0.3rem;
+        }
+
+        .toc {
+            background-color: var(--card-bg);
+            border-radius: 8px;
+            padding: 1rem;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .toc h3 {
+            margin-top: 0;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 0.5rem;
+        }
+
+        .toc ul {
+            list-style-type: none;
+            padding-left: 0;
+        }
+
+        .toc li {
+            margin-bottom: 0.5rem;
+        }
+
+        .toc a {
+            color: var(--accent-color);
+            text-decoration: none;
+            display: block;
+            padding: 5px;
+            border-radius: 4px;
+        }
+
+        .toc a:hover {
+            background-color: rgba(230, 57, 70, 0.1);
+        }
+
+        .toc a.active {
+            background-color: rgba(230, 57, 70, 0.2);
+            font-weight: bold;
+        }
+
+        footer {
+            text-align: center;
+            padding: 1.5rem;
+            margin-top: 2rem;
+            background-color: #333;
+            color: white;
+        }
+
+        /* Study mode controls */
+        .study-controls {
+            background-color: var(--card-bg);
+            padding: 1rem;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            margin-bottom: 1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .toggle-container {
+            display: flex;
+            align-items: center;
+        }
+
+        .toggle-switch {
+            position: relative;
+            display: inline-block;
+            width: 60px;
+            height: 34px;
+            margin-right: 10px;
+        }
+
+        .toggle-switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+        .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #ccc;
+            transition: .4s;
+            border-radius: 34px;
+        }
+
+        .slider:before {
+            position: absolute;
+            content: "";
+            height: 26px;
+            width: 26px;
+            left: 4px;
+            bottom: 4px;
+            background-color: white;
+            transition: .4s;
+            border-radius: 50%;
+        }
+
+        input:checked + .slider {
+            background-color: var(--accent-color);
+        }
+
+        input:focus + .slider {
+            box-shadow: 0 0 1px var(--accent-color);
+        }
+
+        input:checked + .slider:before {
+            transform: translateX(26px);
+        }
+
+        .toggle-label {
+            font-weight: bold;
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: 10px;
+        }
+
+        .btn {
+            background-color: var(--accent-color);
+            color: white;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: background-color 0.2s;
+        }
+
+        .btn:hover {
+            background-color: #d32f3a;
+        }
+
+        .btn-secondary {
+            background-color: #666;
+        }
+
+        .btn-secondary:hover {
+            background-color: #555;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        .icon {
+            transition: transform 0.3s ease;
+        }
+
+        .rotate {
+            transform: rotate(180deg);
+        }
+
+        @media (max-width: 992px) {
+            .container {
+                flex-direction: column;
+            }
+            
+            .sidebar {
+                width: 100%;
+                position: relative;
+                top: 0;
+                height: auto;
+                margin-bottom: 1rem;
+            }
+
+            .study-controls {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            .toggle-container {
+                width: 100%;
+                justify-content: center;
+            }
+
+            .action-buttons {
+                width: 100%;
+                justify-content: center;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .term-list {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Film Sound & Music Terminology Guide</h1>
+    </header>
+
+    <div class="container">
+        <div class="sidebar">
+            <div class="study-controls">
+                <div class="toggle-container">
+                    <label class="toggle-switch">
+                        <input type="checkbox" id="revealToggle">
+                        <span class="slider"></span>
+                    </label>
+                    <span class="toggle-label">Reveal All</span>
+                </div>
+            </div>
+            <div class="toc">
+                <h3>Table of Contents</h3>
+                <ul>
+                    <li><a href="#general-concepts">I. General Sound and Film Concepts</a></li>
+                    <li><a href="#sound-categories">II. Sound Categories and Sources</a></li>
+                    <li><a href="#sound-characteristics">III. Sound Characteristics and Techniques</a></li>
+                    <li><a href="#sound-textures">IV. Sound Track Textures</a></li>
+                    <li><a href="#sound-design">V. Sound Design and Production</a></li>
+                    <li><a href="#film-music">VI. Music in Film</a></li>
+                    <li><a href="#narrative-elements">VII. Narrative and Structural Elements</a></li>
+                    <li><a href="#analysis-techniques">VIII. Analysis Techniques</a></li>
+                    <li><a href="#sound-effects">IX. Specific Sound Effects</a></li>
+                    <li><a href="#film-techniques">X. Film Techniques Related to Sound</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="main-content">
+            <!-- Section I -->
+            <section class="section" id="general-concepts">
+                <h2>I. General Sound and Film Concepts</h2>
+                <div class="term-list">
+                    <div class="term-card">
+                        <div class="term-header">
+                            Added Value
+                            <span class="icon">▼</span>
+                        </div>
+                        <div class="term-content">
+                            <div class="description">The informative or expressive enhancement that sound brings to the image in film. This concept is useful for analysing how sound enriches our understanding of what we see.</div>
+                            <div class="example">
+                                <span class="example-heading">Example:</span>
+                                In 'The Godfather', the sound of a train during Michael's murder of Sollozzo and McCluskey adds dramatic tension without any train being visible.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="term-card">
+                        <div class="term-header">
+                            Audiovisual Contract
+                            <span class="icon">▼</span>
+                        </div>
+                        <div class="term-content">
+                            <div class="description">The unconscious process by which viewers connect what they see and hear in a film, creating a unified experience. This concept helps explain how we make sense of film as an audiovisual medium.</div>
+                            <div class="example">
+                                <span class="example-heading">Example:</span>
+                                When a door closes in a film, we expect to hear a corresponding sound, fulfilling our 'contract' with the film's reality.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="term-card">
+                        <div class="term-header">
+                            Image Track
+                            <span class="icon">▼</span>
+                        </div>
+                        <div class="term-content">
+                            <div class="description">The visual component of a film seen on screen. It works together with the sound track to create the overall film experience.</div>
+                            <div class="example">
+                                <span class="example-heading">Example:</span>
+                                In silent movies, the image track carried the entire narrative weight.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="term-card">
+                        <div class="term-header">
+                            Narrative Clarity
+                            <span class="icon">▼</span>
+                        </div>
+                        <div class="term-content">
+                            <div class="description">The principle of presenting a film's story as clearly as possible, even if it means sacrificing some realism. This is important for understanding how filmmakers prioritise storytelling.</div>
+                            <div class="example">
+                                <span class="example-heading">Example:</span>
+                                Dialogue in crowd scenes is often unnaturally clear to ensure viewers can follow the narrative.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="term-card">
+                        <div class="term-header">
+                            Plot
+                            <span class="icon">▼</span>
+                        </div>
+                        <div class="term-content">
+                            <div class="description">The order in which events are presented in the film, which may differ from the chronological story. Studying the plot reveals how filmmakers create suspense or surprise.</div>
+                            <div class="example">
+                                <span class="example-heading">Example:</span>
+                                Christopher Nolan's 'Memento' has a plot that moves backward while the story actually moves forward chronologically.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="term-card">
+                        <div class="term-header">
+                            Sound Track
+                            <span class="icon">▼</span>
+                        </div>
+                        <div class="term-content">
+                            <div class="description">All the audible elements in a film, including dialogue, music, and sound effects. It plays a crucial role in storytelling and creating atmosphere.</div>
+                            <div class="example">
+                                <span class="example-heading">Example:</span>
+                                The sound track of 'Apocalypse Now' creates an immersive jungle atmosphere through layered ambient sounds.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="term-card">
+                        <div class="term-header">
+                            Story
+                            <span class="icon">▼</span>
+                        </div>
+                        <div class="term-content">
+                            <div class="description">The events of a film in chronological order. Analysing the story helps understand the basic narrative structure.</div>
+                            <div class="example">
+                                <span class="example-heading">Example:</span>
+                                The story of 'The Godfather' spans approximately ten years in the life of the Corleone family.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="term-card">
+                        <div class="term-header">
+                            Synchronisation
+                            <span class="icon">▼</span>
+                        </div>
+                        <div class="term-content">
+                            <div class="description">The precise alignment of sound and image in film. Good synchronisation helps create a believable film world.</div>
+                            <div class="example">
+                                <span class="example-heading">Example:</span>
+                                The sync of lip movements with dialogue or footsteps with walking characters maintains the illusion of reality.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section II -->
+            <section class="section" id="sound-categories">
+                <h2>II. Sound Categories and Sources</h2>
+                <div class="term-list">
+                    <div class="term-card">
+                        <div class="term-header">
+                            Acousmatic Sound
+                            <span class="icon">▼</span>
+                        </div>
+                        <div class="term-content">
+                            <div class="description">Sounds heard in a film without seeing their source on screen. This technique can create mystery or tension.</div>
+                            <div class="example">
+                                <span class="example-heading">Example:</span>
+                                The unseen antagonist in 'The Blair Witch Project' is represented only through acousmatic sounds in the forest.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="term-card">
+                        <div class="term-header">
+                            Ambient Sound
+                            <span class="icon">▼</span>
+                        </div>
+                        <div class="term-content">
+                            <div class="description">Background noises that establish the setting of a scene, like city traffic or birds chirping. These sounds help create a sense of place and atmosphere.</div>
+                            <div class="example">
+                                <span class="example-heading">Example:</span>
+                                The ambient sounds of cricket chirps and distant thunder in 'Days of Heaven' establish the rural Texas setting.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="term-card">
+                        <div class="term-header">
+                            Diegetic Sound
+                            <span class="icon">▼</span>
+                        </div>
+                        <div class="term-content">
+                            <div class="description">Sounds that originate from within the world of the film, such as character dialogue or music playing on a radio in the scene. These sounds help create a realistic film world.</div>
+                            <div class="example">
+                                <span class="example-heading">Example:</span>
+                                In 'Pulp Fiction', when Mia and Vincent dance at Jack Rabbit Slim's, the music is diegetic as it's playing on the restaurant's jukebox.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="term-card">
+                        <div class="term-header">
+                            Foley
+                            <span class="icon">▼</span>
+                        </div>
+                        <div class="term-content">
+                            <div class="description">Recreated everyday sound effects added to a film in post-production, such as footsteps or door creaks. Foley adds realism and texture to the sound track.</div>
+                            <div class="example">
+                                <span class="example-heading">Example:</span>
+                                The lightsaber sounds in 'Star Wars' were created by Foley artists combining various real-world sounds.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="term-card">
+                        <div class="term-header">
+                            Non-diegetic Sound
+                            <span class="icon">▼</span>
+                        </div>
+                        <div class="term-content">
+                            <div class="description">Sounds added to the film that characters can't hear, like background music or narration. These sounds often guide the viewer's emotional response.</div>
+                            <div class="example">
+                                <span class="example-heading">Example:</span>
+                                The ominous theme in 'Jaws' that plays when the shark approaches is non-diegetic – only the audience hears it.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section III - Just a sample, you would continue with all other sections -->
+            <section class="section" id="sound-characteristics">
+                <h2>III. Sound Characteristics and Techniques</h2>
+                <div class="term-list">
+                    <div class="term-card">
+                        <div class="term-header">
+                            Consonance
+                            <span class="icon">▼</span>
+                        </div>
+                        <div class="term-content">
+                            <div class="description">When musical notes played together sound pleasant and stable. Consonance often creates a sense of resolution or peace.</div>
+                            <div class="example">
+                                <span class="example-heading">Example:</span>
+                                The final chord in 'The Shawshank Redemption' score when Andy and Red reunite on the beach is consonant, signifying closure.
+                            </div>
+                        </div>
+                    </div>
+                    
+                   <!-- Additional terms for Section III: Sound Characteristics -->
+<div class="term-card">
+    <div class="term-header">
+        Dissonance
+        <span class="icon">▼</span>
+    </div>
+    <div class="term-content">
+        <div class="description">When musical notes played together sound tense or unstable. Dissonance can create tension or unease in a scene.</div>
+        <div class="example">
+            <span class="example-heading">Example:</span>
+            The screeching violin notes in 'Psycho's' shower scene use dissonance to heighten the horror.
+        </div>
+    </div>
+</div>
+<div class="term-card">
+    <div class="term-header">
+        Harmony
+        <span class="icon">▼</span>
+    </div>
+    <div class="term-content">
+        <div class="description">The combination of different musical notes played simultaneously. Harmony can evoke specific emotions and enhance the mood of a scene.</div>
+        <div class="example">
+            <span class="example-heading">Example:</span>
+            The rich, warm harmonies in 'Cinema Paradiso's' score by Ennio Morricone evoke nostalgia.
+        </div>
+    </div>
+</div>
+<div class="term-card">
+    <div class="term-header">
+        Meter
+        <span class="icon">▼</span>
+    </div>
+    <div class="term-content">
+        <div class="description">The regular pulse or beat in music, often grouped into measures. Meter provides structure and can influence how we perceive time in a film.</div>
+        <div class="example">
+            <span class="example-heading">Example:</span>
+            The steady 3/4 waltz meter in '2001: A Space Odyssey' during the space station docking sequence emphasizes the graceful rotation.
+        </div>
+    </div>
+</div>
+<div class="term-card">
+    <div class="term-header">
+        Orchestration
+        <span class="icon">▼</span>
+    </div>
+    <div class="term-content">
+        <div class="description">The art of choosing and arranging instruments in a piece of music. Effective orchestration can enhance the emotional impact of film music.</div>
+        <div class="example">
+            <span class="example-heading">Example:</span>
+            John Williams' orchestration for 'Star Wars' uses full brass for the heroic main theme, helping establish its epic nature.
+        </div>
+    </div>
+</div>
+<div class="term-card">
+    <div class="term-header">
+        Pitch
+        <span class="icon">▼</span>
+    </div>
+    <div class="term-content">
+        <div class="description">The highness or lowness of a sound. Pitch can convey emotion and create tension or release.</div>
+        <div class="example">
+            <span class="example-heading">Example:</span>
+            The gradually rising pitch of the strings in 'Jaws' as the shark approaches creates mounting tension.
+        </div>
+    </div>
+</div>
+<div class="term-card">
+    <div class="term-header">
+        Rhythm
+        <span class="icon">▼</span>
+    </div>
+    <div class="term-content">
+        <div class="description">The pattern of sounds and silences in music or other sounds. Rhythm can create mood and help pace the narrative.</div>
+        <div class="example">
+            <span class="example-heading">Example:</span>
+            The rhythmic typing sounds in 'The Social Network' underscore Mark Zuckerberg's coding scenes, emphasizing his intense focus.
+        </div>
+    </div>
+</div>
+<div class="term-card">
+    <div class="term-header">
+        Tempo
+        <span class="icon">▼</span>
+    </div>
+    <div class="term-content">
+        <div class="description">The speed or pace of music or rhythmic sounds in a film. Tempo can affect the perceived pacing of a scene.</div>
+        <div class="example">
+            <span class="example-heading">Example:</span>
+            The increasing tempo during chase scenes in 'Mad Max: Fury Road' heightens the sense of urgency and danger.
+        </div>
+    </div>
+</div>
+<div class="term-card">
+    <div class="term-header">
+        Tessitura
+        <span class="icon">▼</span>
+    </div>
+    <div class="term-content">
+        <div class="description">The general pitch range of a piece of music or a voice. Tessitura can affect the overall mood and energy of a musical piece or vocal performance.</div>
+        <div class="example">
+            <span class="example-heading">Example:</span>
+            The low tessitura of Hans Zimmer's 'Inception' score adds weight and seriousness to the film.
+        </div>
+    </div>
+</div>
+<div class="term-card">
+    <div class="term-header">
+        Timbre
+        <span class="icon">▼</span>
+    </div>
+    <div class="term-content">
+        <div class="description">The unique quality or 'colour' of a sound that distinguishes it from others, even at the same pitch and volume. Timbre helps create rich, varied soundscapes.</div>
+        <div class="example">
+            <span class="example-heading">Example:</span>
+            Darth Vader's breathing has a distinctive timbre that immediately identifies his character, even off-screen.
+        </div>
+    </div>
+</div>
+<div class="term-card">
+    <div class="term-header">
+        Volume/Dynamics
+        <span class="icon">▼</span>
+    </div>
+    <div class="term-content">
+        <div class="description">The loudness or softness of a sound. Changes in volume can create emphasis or suggest distance.</div>
+        <div class="example">
+            <span class="example-heading">Example:</span>
+            In 'No Country for Old Men', the subtle volume changes of Anton Chigurh's footsteps create tension through their barely audible presence.
+        </div>
+    </div>
+</div>
+                </div>
+            </section>
+            <section class="section" id="sound-textures">
+                <h2>IV. Sound Track Textures</h2>
+                <div class="term-list">
+                    <div class="term-card">
+                        <div class="term-header">
+                            A-melodic
+                            <span class="icon">▼</span>
+                        </div>
+                        <div class="term-content">
+                            <div class="description">A texture of background sounds or music without a clear melody. This can create atmosphere without drawing attention away from dialogue or action.</div>
+                            <div class="example">
+                                <span class="example-heading">Example:</span>
+                                The ambient electronic textures in 'Blade Runner 2049' create mood without melodic elements that might distract from the dialogue.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="term-card">
+                        <div class="term-header">
+                            Homophony (music)
+                            <span class="icon">▼</span>
+                        </div>
+                        <div class="term-content">
+                            <div class="description">A texture with a main melody supported by chords moving in the same rhythm. This is common in many film scores.</div>
+                            <div class="example">
+                                <span class="example-heading">Example:</span>
+                                John Williams' 'Imperial March' from 'Star Wars' features a clear melody with chords underneath that follow the same rhythmic pattern.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="term-card">
+                        <div class="term-header">
+                            Melody and accompaniment (music)
+                            <span class="icon">▼</span>
+                        </div>
+                        <div class="term-content">
+                            <div class="description">A texture with a clear main tune supported by a more complex background. This allows for both melodic expression and harmonic richness.</div>
+                            <div class="example">
+                                <span class="example-heading">Example:</span>
+                                The main theme from 'Titanic' by James Horner features a prominent melody with a richer, more complex accompaniment beneath.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="term-card">
+                        <div class="term-header">
+                            Monophony
+                            <span class="icon">▼</span>
+                        </div>
+                        <div class="term-content">
+                            <div class="description">A texture with only one main sound or melody, without accompaniment. This can create focus or simplicity in a scene.</div>
+                            <div class="example">
+                                <span class="example-heading">Example:</span>
+                                The lone flute melody that opens 'Once Upon a Time in America' creates an intimate, solitary mood.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="term-card">
+                        <div class="term-header">
+                            Polyphony
+                            <span class="icon">▼</span>
+                        </div>
+                        <div class="term-content">
+                            <div class="description">A texture with multiple, equally important melodies or sounds occurring simultaneously. This can create complexity or represent multiple perspectives.</div>
+                            <div class="example">
+                                <span class="example-heading">Example:</span>
+                                The overlapping dialogue and sound effects in Robert Altman's films like 'Nashville' create a polyphonic soundscape that represents multiple character perspectives.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <section class="section" id="sound-design">
+                <h2>V. Sound Design and Production</h2>
+                <div class="term-list">
+                    <div class="term-card">
+                        <div class="term-header">
+                            Density
+                            <span class="icon">▼</span>
+                        </div>
+                        <div class="term-content">
+                            <div class="description">The perceived fullness or complexity of the mix of sounds in a scene. Density can affect the mood and energy of a scene.</div>
+                            <div class="example">
+                                <span class="example-heading">Example:</span>
+                                The opening battle scene in 'Saving Private Ryan' uses high sound density with overlapping explosions, gunfire, and shouting to create overwhelming chaos.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="term-card">
+                        <div class="term-header">
+                            Layering
+                            <span class="icon">▼</span>
+                        </div>
+                        <div class="term-content">
+                            <div class="description">The technique of combining multiple sounds to create a richer, more complex audio experience. Layering adds depth to the sound track.</div>
+                            <div class="example">
+                                <span class="example-heading">Example:</span>
+                                In 'Jurassic Park', the T-Rex roar was created by layering tiger, alligator, and elephant sounds to create something both believable and otherworldly.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="term-card">
+                        <div class="term-header">
+                            Liveliness
+                            <span class="icon">▼</span>
+                        </div>
+                        <div class="term-content">
+                            <div class="description">The amount of activity or movement in the sounds of a scene. Liveliness can influence the perceived pace and energy of a scene.</div>
+                            <div class="example">
+                                <span class="example-heading">Example:</span>
+                                The bustling market scenes in 'Slumdog Millionaire' use highly lively sound design with constant movement and activity to convey the energy of Mumbai.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="term-card">
+                        <div class="term-header">
+                            Sound Design
+                            <span class="icon">▼</span>
+                        </div>
+                        <div class="term-content">
+                            <div class="description">The process of planning, creating, and arranging all the sounds for a film. Good sound design enhances storytelling and viewer engagement.</div>
+                            <div class="example">
+                                <span class="example-heading">Example:</span>
+                                Walter Murch's sound design for 'Apocalypse Now' creates a rich sonic environment that immerses viewers in the psychological experience of war.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="term-card">
+                        <div class="term-header">
+                            Sound Mixing
+                            <span class="icon">▼</span>
+                        </div>
+                        <div class="term-content">
+                            <div class="description">The process of balancing and adjusting different audio elements to create the final sound track. Mixing is crucial for clarity and emotional impact.</div>
+                            <div class="example">
+                                <span class="example-heading">Example:</span>
+                                In 'Whiplash', the precise mixing of the jazz performances allows individual instruments to stand out at key moments while maintaining the overall band sound.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="term-card">
+                        <div class="term-header">
+                            Sound Perspective
+                            <span class="icon">▼</span>
+                        </div>
+                        <div class="term-content">
+                            <div class="description">The apparent distance and direction of sounds relative to the camera or listener. This helps create a sense of space in the film world.</div>
+                            <div class="example">
+                                <span class="example-heading">Example:</span>
+                                In 'Gravity', sound perspective changes dramatically as the camera moves from inside to outside of a space helmet, simulating what the character would actually hear.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="term-card">
+                        <div class="term-header">
+                            Sweetening
+                            <span class="icon">▼</span>
+                        </div>
+                        <div class="term-content">
+                            <div class="description">The process of enhancing sound effects by mixing in additional sounds. This technique creates more impactful and realistic sound effects.</div>
+                            <div class="example">
+                                <span class="example-heading">Example:</span>
+                                In action films like 'John Wick', gunshots are sweetened with additional bass elements to make them sound more powerful than real gunshots.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <section class="section" id="film-music">
+                <h2>VI. Music in Film</h2>
+                <div class="term-list">
+                    <div class="term-card">
+                        <div class="term-header">
+                            Anempathetic Music
+                            <span class="icon">▼</span>
+                        </div>
+                        <div class="term-content">
+                            <div class="description">Music that seems indifferent to or contradicts the emotions in a scene. This can create irony or emotional distance.</div>
+                            <div class="example">
+                                <span class="example-heading">Example:</span>
+                                In 'Reservoir Dogs', the upbeat "Stuck in the Middle with You" plays during a violent torture scene, creating a disturbing contrast.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="term-card">
+                        <div class="term-header">
+                            Empathetic Music
+                            <span class="icon">▼</span>
+                        </div>
+                        <div class="term-content">
+                            <div class="description">Music that directly expresses or reinforces the emotions in a scene. This type of music intensifies the viewer's emotional experience.</div>
+                            <div class="example">
+                                <span class="example-heading">Example:</span>
+                                The sad piano theme in 'Schindler's List' directly reinforces and heightens the emotional impact of the tragic scenes.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="term-card">
+                        <div class="term-header">
+                            Leitmotif
+                            <span class="icon">▼</span>
+                        </div>
+                        <div class="term-content">
+                            <div class="description">A recurring musical theme associated with a particular character, place, or idea in a film. Leitmotifs help create coherence and depth in storytelling.</div>
+                            <div class="example">
+                                <span class="example-heading">Example:</span>
+                                The 'Raiders March' serves as Indiana Jones's leitmotif, appearing whenever he performs heroic actions across the series.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="term-card">
+                        <div class="term-header">
+                            Pedal Point
+                            <span class="icon">▼</span>
+                        </div>
+                        <div class="term-content">
+                            <div class="description">A sustained note, usually in the bass, that remains constant while other musical elements change above it. Pedal points can create tension or a sense of grounding.</div>
+                            <div class="example">
+                                <span class="example-heading">Example:</span>
+                                Hans Zimmer's score for 'Dunkirk' uses a continuous low pedal point throughout much of the film to create sustained tension.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="term-card">
+                        <div class="term-header">
+                            Underscoring
+                            <span class="icon">▼</span>
+                        </div>
+                        <div class="term-content">
+                            <div class="description">Background music in a film that supports the mood or action. Underscoring can guide viewers' emotions and enhance narrative understanding.</div>
+                            <div class="example">
+                                <span class="example-heading">Example:</span>
+                                In 'The Shawshank Redemption', Thomas Newman's gentle piano underscoring adds emotional depth to Andy and Red's friendship without drawing attention to itself.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <section class="section" id="narrative-elements">
+                <h2>VII. Narrative and Structural Elements</h2>
+                <div class="term-list">
+                    <div class="term-card">
+                        <div class="term-header">
+                            Audio Dissolve
+                            <span class="icon">▼</span>
+                        </div>
+                        <div class="term-content">
+                            <div class="description">A transition technique often used in musicals, where diegetic sound (like a character singing) smoothly blends into non-diegetic sound (like orchestral accompaniment). This can create a dreamlike quality or signify a shift in the reality of the scene.</div>
+                            <div class="example">
+                                <span class="example-heading">Example:</span>
+                                In 'La La Land', when Sebastian plays piano at the restaurant, the solo piano (diegetic) dissolves into a full orchestral arrangement (non-diegetic) as the scene transitions.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="term-card">
+                        <div class="term-header">
+                            Background
+                            <span class="icon">▼</span>
+                        </div>
+                        <div class="term-content">
+                            <div class="description">Less prominent sounds that create the overall acoustic environment of a scene. Background sounds add depth and realism.</div>
+                            <div class="example">
+                                <span class="example-heading">Example:</span>
+                                In 'Casablanca', the ambient sounds of glasses clinking and distant conversations in Rick's Café create a believable background atmosphere.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="term-card">
+                        <div class="term-header">
+                            Establishing Sound
+                            <span class="icon">▼</span>
+                        </div>
+                        <div class="term-content">
+                            <div class="description">Sounds used at the beginning of a scene to establish the setting or atmosphere. These help orient the viewer in the film's world.</div>
+                            <div class="example">
+                                <span class="example-heading">Example:</span>
+                                The sound of seagulls and waves in the opening of 'The Truman Show' immediately establishes the coastal setting.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="term-card">
+                        <div class="term-header">
+                            Foreground
+                            <span class="icon">▼</span>
+                        </div>
+                        <div class="term-content">
+                            <div class="description">The main or most prominent sounds in a scene. These sounds typically carry the most narrative importance.</div>
+                            <div class="example">
+                                <span class="example-heading">Example:</span>
+                                In a dialogue scene from 'The Social Network', the characters' voices are in the foreground while the party sounds are pushed to the background.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="term-card">
+                        <div class="term-header">
+                            Hard Cut
+                            <span class="icon">▼</span>
+                        </div>
+                        <div class="term-content">
+                            <div class="description">An abrupt transition between scenes where both the image and sound change suddenly. This can create a jarring effect, often used to surprise the audience or emphasise a dramatic change in the story.</div>
+                            <div class="example">
+                                <span class="example-heading">Example:</span>
+                                In '2001: A Space Odyssey', the famous match cut from the bone to the spacecraft is accompanied by a hard cut from primitive screams to silence.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="term-card">
+                        <div class="term-header">
+                            Mickey-Mousing
+                            <span class="icon">▼</span>
+                        </div>
+                        <div class="term-content">
+                            <div class="description">A technique where music closely follows the action on screen, often imitating specific movements or events. This can create a comedic effect or emphasise particular actions.</div>
+                            <div class="example">
+                                <span class="example-heading">Example:</span>
+                                In 'The Pink Panther', the music follows Inspector Clouseau's clumsy movements, with musical accents for each stumble or fall.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="term-card">
+                        <div class="term-header">
+                            Neutral Music
+                            <span class="icon">▼</span>
+                        </div>
+                        <div class="term-content">
+                            <div class="description">Background music that doesn't actively reinforce or contradict the emotions of a scene. This type of music can create atmosphere without drawing attention to itself.</div>
+                            <div class="example">
+                                <span class="example-heading">Example:</span>
+                                In many documentary films, neutral background music provides pace and continuity without emotionally manipulating the audience's response to the content.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="term-card">
+                        <div class="term-header">
+                            Sound Advance
+                            <span class="icon">▼</span>
+                        </div>
+                        <div class="term-content">
+                            <div class="description">When audio from an upcoming scene is heard before the visual transition occurs. This technique can create anticipation or smooth scene changes.</div>
+                            <div class="example">
+                                <span class="example-heading">Example:</span>
+                                In 'The Godfather', we hear the train whistle before the scene transitions to the train station where Michael arrives in Sicily.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="term-card">
+                        <div class="term-header">
+                            Sound Bridge
+                            <span class="icon">▼</span>
+                        </div>
+                        <div class="term-content">
+                            <div class="description">The use of sound to connect two scenes, often by starting the audio of the next scene before the visual transition. This creates smoother scene transitions.</div>
+                            <div class="example">
+                                <span class="example-heading">Example:</span>
+                                In 'The Graduate', Simon and Garfunkel's music often bridges scenes, connecting different moments in Benjamin's life.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="term-card">
+                        <div class="term-header">
+                            Sound Lag
+                            <span class="icon">▼</span>
+                        </div>
+                        <div class="term-content">
+                            <div class="description">When audio from one scene continues briefly into the next scene. This technique can create connections between scenes or evoke a sense of memory.</div>
+                            <div class="example">
+                                <span class="example-heading">Example:</span>
+                                In 'Inception', Edith Piaf's "Non, Je Ne Regrette Rien" continues to play as characters transition between dream levels, acting as both a story element and sound lag.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="term-card">
+                        <div class="term-header">
+                            Sound Link
+                            <span class="icon">▼</span>
+                        </div>
+                        <div class="term-content">
+                            <div class="description">The use of continuous sound (like music or ambient noise) to connect a series of shots that might otherwise seem unrelated. This helps create a sense of unity.</div>
+                            <div class="example">
+                                <span class="example-heading">Example:</span>
+                                In 'Amélie', the narrator's voice serves as a sound link connecting various vignettes about different characters.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="term-card">
+                        <div class="term-header">
+                            Sound Match
+                            <span class="icon">▼</span>
+                        </div>
+                        <div class="term-content">
+                            <div class="description">When a sound at the end of one scene is followed by a similar sound at the beginning of the next. This creates a smooth transition between scenes.</div>
+                            <div class="example">
+                                <span class="example-heading">Example:</span>
+                                In 'Citizen Kane', the sound of Kane's wife singing operatically matches to the sound of a parrot squawking in the following scene, creating an ironic transition.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="term-card">
+                        <div class="term-header">
+                            Stinger
+                            <span class="icon">▼</span>
+                        </div>
+                        <div class="term-content">
+                            <div class="description">A sudden, sharp sound used for dramatic effect, often to startle the audience or emphasise a moment. Stingers can create tension or punctuate dramatic moments.</div>
+                            <div class="example">
+                                <span class="example-heading">Example:</span>
+                                In 'Psycho', the sharp violin stabs during the shower scene serve as stingers that emphasize each knife strike.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="term-card">
+                        <div class="term-header">
+                            Sync Point
+                            <span class="icon">▼</span>
+                        </div>
+                        <div class="term-content">
+                            <div class="description">A moment when a specific sound perfectly matches a visual event on screen. Sync points can create satisfying audiovisual harmony or emphasise specific actions.</div>
+                            <div class="example">
+                                <span class="example-heading">Example:</span>
+                                In 'Baby Driver', the gunshots and car stunts are precisely synchronized with beats in the music, creating stylized sync points throughout the film.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <section class="section" id="analysis-techniques">
+                <h2>VIII. Analysis Techniques</h2>
+                <div class="term-list">
+                    <div class="term-card">
+                        <div class="term-header">
+                            Commutation Test
+                            <span class="icon">▼</span>
+                        </div>
+                        <div class="term-content">
+                            <div class="description">Replacing the original music in a scene with different music to understand the impact of the original choice. This test reveals how music shapes our interpretation of a scene.</div>
+                            <div class="example">
+                                <span class="example-heading">Example:</span>
+                                Replacing the 'Jaws' theme with cheerful music in shark approach scenes would demonstrate how crucial the original music is to creating tension.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="term-card">
+                        <div class="term-header">
+                            Masking
+                            <span class="icon">▼</span>
+                        </div>
+                        <div class="term-content">
+                            <div class="description">The practice of watching a film without sound or listening to the sound without images. This technique helps analyse how each component contributes to the overall effect.</div>
+                            <div class="example">
+                                <span class="example-heading">Example:</span>
+                                Watching the opening scene of 'Apocalypse Now' without sound reveals how much of the scene's impact depends on the Doors' "The End" and the helicopter sounds.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="term-card">
+                        <div class="term-header">
+                            Vertical Montage
+                            <span class="icon">▼</span>
+                        </div>
+                        <div class="term-content">
+                            <div class="description">The relationship between what is seen and heard at any given moment in a film. Analysing vertical montage helps understand how sound and image work together.</div>
+                            <div class="example">
+                                <span class="example-heading">Example:</span>
+                                In the baptism scene of 'The Godfather', the vertical montage of religious ceremony visuals with the sounds of gunshots and screams creates powerful juxtaposition.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <section class="section" id="sound-effects">
+                <h2>IX. Specific Sound Effects</h2>
+                <div class="term-list">
+                    <div class="term-card">
+                        <div class="term-header">
+                            Crescendo
+                            <span class="icon">▼</span>
+                        </div>
+                        <div class="term-content">
+                            <div class="description">A gradual increase in volume. Crescendos can build tension or excitement.</div>
+                            <div class="example">
+                                <span class="example-heading">Example:</span>
+                                In 'Close Encounters of the Third Kind', the music builds in a crescendo as the alien mothership appears, heightening the sense of awe.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="term-card">
+                        <div class="term-header">
+                            Diminuendo
+                            <span class="icon">▼</span>
+                        </div>
+                        <div class="term-content">
+                            <div class="description">A gradual decrease in volume. Diminuendos can create a sense of fading or calming.</div>
+                            <div class="example">
+                                <span class="example-heading">Example:</span>
+                                At the end of 'The Truman Show', the volume of the soundtrack gradually diminishes as Truman walks through the exit door, symbolizing his departure from the artificial world.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="term-card">
+                        <div class="term-header">
+                            Fade In/Fade Out
+                            <span class="icon">▼</span>
+                        </div>
+                        <div class="term-content">
+                            <div class="description">The gradual appearance or disappearance of a sound. These techniques can smooth transitions or suggest the passing of time.</div>
+                            <div class="example">
+                                <span class="example-heading">Example:</span>
+                                In 'Fight Club', the sounds of the support group meetings often fade out as the narrator loses focus, mirroring his mental state.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="term-card">
+                        <div class="term-header">
+                            Reverb
+                            <span class="icon">▼</span>
+                        </div>
+                        <div class="term-content">
+                            <div class="description">An effect that simulates sound reflections, creating a sense of space. Reverb can suggest the size and nature of an environment.</div>
+                            <div class="example">
+                                <span class="example-heading">Example:</span>
+                                In 'The King's Speech', the large reverb on the king's voice during his radio broadcasts emphasizes the vastness of his audience and the pressure he feels.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <section class="section" id="film-techniques">
+                <h2>X. Film Techniques Related to Sound</h2>
+                <div class="term-list">
+                    <div class="term-card">
+                        <div class="term-header">
+                            Audiovisual Dissonance
+                            <span class="icon">▼</span>
+                        </div>
+                        <div class="term-content">
+                            <div class="description">When the audio and visual elements of a scene seem to contradict each other. This can create unease or draw attention to the constructed nature of the film.</div>
+                            <div class="example">
+                                <span class="example-heading">Example:</span>
+                                In 'A Clockwork Orange', classical music plays during violent scenes, creating audiovisual dissonance that highlights the protagonist's disturbed character.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="term-card">
+                        <div class="term-header">
+                            Establishing Shot
+                            <span class="icon">▼</span>
+                        </div>
+                        <div class="term-content">
+                            <div class="description">A wide camera shot at the beginning of a scene that shows the overall setting. Often accompanied by establishing sounds to create a sense of place.</div>
+                            <div class="example">
+                                <span class="example-heading">Example:</span>
+                                The establishing shot of New York City in 'The Avengers' is accompanied by the sounds of car horns and city ambience to establish the urban environment.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="term-card">
+                        <div class="term-header">
+                            Point-of-Audition
+                            <span class="icon">▼</span>
+                        </div>
+                        <div class="term-content">
+                            <div class="description">The perspective from which sounds are heard in a film, often aligned with a character's position. This technique can increase viewer identification with characters.</div>
+                            <div class="example">
+                                <span class="example-heading">Example:</span>
+                                In 'Saving Private Ryan', we hear the muffled underwater sounds from Captain Miller's point-of-audition after the beach landing explosion, putting us in his perspective.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="term-card">
+                        <div class="term-header">
+                            Shot/Reverse Shot
+                            <span class="icon">▼</span>
+                        </div>
+                        <div class="term-content">
+                            <div class="description">A common technique for filming conversation, alternating between views of each speaker. The associated audio helps maintain the illusion of continuous dialogue.</div>
+                            <div class="example">
+                                <span class="example-heading">Example:</span>
+                                The interrogation scenes in 'The Dark Knight' use shot/reverse shot between the Joker and Batman while maintaining consistent audio to create a seamless conversation.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Additional sections would be added here with the same pattern -->
+
+        </div>
+    </div>
+
+    <footer>
+        <p>Created by Matthew Sansom using Claude 3.7 Sonnet © 2025</p>
+    </footer>
+
+    <script>
+       // Study mode functionality - defaults to definitions hidden, toggle reveals all
+const revealToggle = document.getElementById('revealToggle');
+const termCards = document.querySelectorAll('.term-card');
+const termHeaders = document.querySelectorAll('.term-header');
+const termContents = document.querySelectorAll('.term-content');
+
+// Initialize the page with all content hidden (study mode by default)
+termContents.forEach(content => {
+    content.style.display = 'none';
+});
+
+document.querySelectorAll('.icon').forEach(icon => {
+    icon.classList.remove('rotate');
+});
+
+// Toggle reveal all functionality
+revealToggle.addEventListener('change', function() {
+    if (this.checked) {
+        // Reveal all terms
+        termContents.forEach(content => {
+            content.style.display = 'block';
+        });
+        
+        // Set all icons to rotated state
+        document.querySelectorAll('.icon').forEach(icon => {
+            icon.classList.add('rotate');
+        });
+    } else {
+        // Hide all terms
+        termContents.forEach(content => {
+            content.style.display = 'none';
+        });
+        
+        // Reset all icons
+        document.querySelectorAll('.icon').forEach(icon => {
+            icon.classList.remove('rotate');
+        });
+    }
+});
+    
+        // Click on term header to toggle content
+        termHeaders.forEach(header => {
+            header.addEventListener('click', function() {
+                const content = this.nextElementSibling;
+                const icon = this.querySelector('.icon');
+                
+                if (content.style.display === 'none' || content.style.display === '') {
+                    content.style.display = 'block';
+                    icon.classList.add('rotate');
+                } else {
+                    content.style.display = 'none';
+                    icon.classList.remove('rotate');
+                }
+            });
+        });
+    
+        // Highlight active section in TOC when scrolling
+        const sections = document.querySelectorAll('.section');
+        const navLinks = document.querySelectorAll('.toc a');
+    
+        window.addEventListener('scroll', () => {
+            let current = '';
+            
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.clientHeight;
+                
+                if (pageYOffset >= (sectionTop - 150)) {
+                    current = section.getAttribute('id');
+                }
+            });
+            
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href').substring(1) === current) {
+                    link.classList.add('active');
+                }
+            });
+        });
+    
+        // Improved smooth scrolling for anchor links with fixed header offset
+        document.querySelectorAll('.toc a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                // Get the target element
+                const targetId = this.getAttribute('href').substring(1);
+                const targetElement = document.getElementById(targetId);
+                
+                // Calculate header height and add some padding
+                const headerHeight = document.querySelector('header').offsetHeight;
+                const offset = headerHeight + 30; // 30px additional padding
+                
+                // Calculate the scroll position
+                const targetPosition = targetElement.getBoundingClientRect().top + window.pageYOffset;
+                const offsetPosition = targetPosition - offset;
+                
+                // Perform the scroll
+                window.scrollTo({
+                    top: offsetPosition,
+                    behavior: 'smooth'
+                });
+            });
+        });
+    </script>
