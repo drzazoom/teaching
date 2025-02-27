@@ -1,0 +1,760 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Logic Pro Key Commands Reference</title>
+    <style>
+        :root {
+            --primary-color: #333;
+            --secondary-color: #f5f5f7;
+            --accent-color: #0071e3;
+            --card-bg: #ffffff;
+            --text-color: #333;
+            --border-color: #e0e0e0;
+            --key-bg: #f0f0f0;
+            --key-border: #d0d0d0;
+            --favorite-inactive: #ccc;
+            --favorite-active: gold;
+        }
+
+        /* Dark mode variables */
+        .dark-mode {
+            --primary-color: #f5f5f7;
+            --secondary-color: #1e1e1e;
+            --accent-color: #0a84ff;
+            --card-bg: #2d2d2d;
+            --text-color: #f5f5f7;
+            --border-color: #444;
+            --key-bg: #3a3a3a;
+            --key-border: #555;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            line-height: 1.6;
+            background-color: var(--secondary-color);
+            color: var(--text-color);
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        header {
+            background-color: #333;
+            color: white;
+            padding: 1.5rem 0;
+            text-align: center;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        h1 {
+            font-size: 1.8rem;
+            margin: 0;
+        }
+
+        .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 1.5rem;
+    /* Remove the extra bottom padding since footer is no longer fixed */
+    display: flex;
+    gap: 2rem;
+    min-height: calc(100vh - 12rem);
+}
+
+        .sidebar {
+    width: 250px;
+    position: fixed; /* Changed from sticky to fixed */
+    top: 6rem;
+    left: calc(50% - 600px + 1.5rem); /* Center aligned with your container */
+    max-height: calc(100vh - 6rem);
+    overflow-y: auto;
+    z-index: 10;
+}
+
+.main-content {
+    flex: 1;
+    margin-left: 270px; /* Added margin to compensate for fixed sidebar */
+}
+
+        .category-heading {
+            margin-top: 2rem;
+            margin-bottom: 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--accent-color);
+            font-size: 1.5rem;
+            color: var(--text-color);
+        }
+
+        .shortcuts-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .shortcut-card {
+            background-color: var(--card-bg);
+            border-radius: 8px;
+            padding: 1rem;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            position: relative;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .shortcut-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+        }
+
+        .favorite-btn {
+            position: absolute;
+            top: 0.8rem;
+            right: 0.8rem;
+            background: none;
+            border: none;
+            font-size: 1.2rem;
+            color: var(--favorite-inactive);
+            cursor: pointer;
+        }
+
+        .favorite-btn.active {
+            color: var(--favorite-active);
+        }
+
+        .command {
+            font-weight: bold;
+            margin-bottom: 0.8rem;
+            padding-right: 1.5rem; /* Space for favorite star */
+            color: var(--text-color);
+        }
+
+        .keys-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.4rem;
+            margin-bottom: 0.8rem;
+        }
+
+        .key {
+    background-color: var(--key-bg);
+    border: 1px solid var(--key-border);
+    border-radius: 6px;
+    padding: 0.4rem 0.7rem;
+    font-family: monospace;
+    font-size: 0.95rem;
+    font-weight: 600;
+    box-shadow: 0 2px 0 var(--key-border);
+    margin-bottom: 2px;
+    display: inline-block;
+}
+
+        .description {
+            font-size: 0.9rem;
+            color: var(--text-color);
+            opacity: 0.8;
+        }
+
+        .no-results {
+            text-align: center;
+            padding: 2rem;
+            grid-column: 1 / -1;
+            color: var(--text-color);
+        }
+
+        .dark-mode-toggle {
+            position: fixed;
+            bottom: 1.5rem;
+            right: 1.5rem;
+            width: 3rem;
+            height: 3rem;
+            border-radius: 50%;
+            background-color: var(--card-bg);
+            color: var(--text-color);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            border: 1px solid var(--border-color);
+            cursor: pointer;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            z-index: 100;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        footer {
+    text-align: center;
+    padding: 1.5rem;
+    color: var(--text-color);
+    opacity: 0.7;
+    font-size: 0.9rem;
+    background-color: var(--secondary-color);
+    width: 100%;
+    z-index: 1;
+}
+
+        /* Search box styling */
+        .search-container {
+            margin-bottom: 1.5rem;
+        }
+
+        #search-input {
+            width: 100%;
+            padding: 0.8rem 1.2rem;
+            border: 1px solid var(--border-color);
+            border-radius: 30px;
+            font-size: 1rem;
+            background-color: var(--card-bg);
+            color: var(--text-color);
+            transition: border-color 0.3s;
+        }
+
+        #search-input:focus {
+            outline: none;
+            border-color: var(--accent-color);
+        }
+
+        /* Sidebar tab styling */
+        .sidebar-tabs {
+            background-color: var(--card-bg);
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+
+        .sidebar-tabs h3 {
+            padding: 1rem;
+            margin: 0;
+            border-bottom: 1px solid var(--border-color);
+            font-size: 1.2rem;
+        }
+
+        .tab-list {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        .tab-item {
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .tab-button {
+            display: block;
+            width: 100%;
+            padding: 0.8rem 1rem;
+            text-align: left;
+            background: none;
+            border: none;
+            cursor: pointer;
+            color: var(--text-color);
+            font-size: 0.95rem;
+            transition: background-color 0.2s;
+        }
+
+        .tab-button:hover {
+            background-color: rgba(0, 113, 227, 0.1);
+        }
+
+        .tab-button.active {
+            background-color: rgba(0, 113, 227, 0.2);
+            font-weight: bold;
+            color: var(--accent-color);
+            border-left: 3px solid var(--accent-color);
+            padding-left: calc(1rem - 3px);
+        }
+
+        .favorites-toggle {
+            display: flex;
+            align-items: center;
+            margin-top: 1rem;
+            padding: 0.8rem 1rem;
+            background-color: var(--card-bg);
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .toggle-switch {
+            position: relative;
+            display: inline-block;
+            width: 60px;
+            height: 30px;
+            margin-right: 10px;
+        }
+
+        .toggle-switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+        .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #ccc;
+            transition: .4s;
+            border-radius: 30px;
+        }
+
+        .slider:before {
+            position: absolute;
+            content: "";
+            height: 22px;
+            width: 22px;
+            left: 4px;
+            bottom: 4px;
+            background-color: white;
+            transition: .4s;
+            border-radius: 50%;
+        }
+
+        input:checked + .slider {
+            background-color: var(--favorite-active);
+        }
+
+        input:focus + .slider {
+            box-shadow: 0 0 1px var(--favorite-active);
+        }
+
+        input:checked + .slider:before {
+            transform: translateX(30px);
+        }
+
+        .toggle-label {
+            font-weight: bold;
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 992px) {
+    .sidebar {
+        position: relative;
+        top: 0;
+        left: 0;
+        width: 100%;
+        max-height: none;
+    }
+    
+    .main-content {
+        margin-left: 0;
+    }
+    
+    .container {
+        flex-direction: column;
+    }
+}
+
+        @media (max-width: 768px) {
+            .shortcuts-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            h1 {
+                font-size: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Logic Pro Key Commands Reference</h1>
+    </header>
+
+    <div class="container">
+        <div class="sidebar">
+            <div class="search-container">
+                <input type="text" id="search-input" placeholder="Search for shortcuts">
+            </div>
+            
+            <div class="favorites-toggle">
+                <label class="toggle-switch">
+                    <input type="checkbox" id="favorites-toggle">
+                    <span class="slider"></span>
+                </label>
+                <span class="toggle-label">Show Favorites</span>
+            </div>
+            
+            <div class="sidebar-tabs">
+                <h3>Categories</h3>
+                <ul class="tab-list" id="category-tabs">
+                    <!-- Tabs will be generated with JavaScript -->
+                </ul>
+            </div>
+        </div>
+
+        <div class="main-content" id="shortcuts-container">
+            <!-- Shortcuts will be populated with JavaScript -->
+        </div>
+    </div>
+
+    <button id="dark-mode-toggle" class="dark-mode-toggle" aria-label="Toggle dark mode">🌓</button>
+
+    <footer>
+        <p>Created by Matthew Sansom using Claude 3.7 Sonnet © 2025</p>
+    </footer>
+
+    <script>
+        // Wait for DOM to be fully loaded
+        document.addEventListener('DOMContentLoaded', function() {
+            // DOM elements
+            const searchInput = document.getElementById('search-input');
+            const categoryTabs = document.getElementById('category-tabs');
+            const shortcutsContainer = document.getElementById('shortcuts-container');
+            const darkModeToggle = document.getElementById('dark-mode-toggle');
+            const favoritesToggle = document.getElementById('favorites-toggle');
+            
+            // State variables
+            let currentCategory = 'all';
+            let favorites = loadFavorites();
+            let showFavoritesOnly = false;
+            let darkMode = false;
+            try {
+                darkMode = localStorage.getItem('logicProDarkMode') === 'true';
+            } catch (e) {
+                // If localStorage is not available, default to light mode
+            }
+            
+            // Apply dark mode if saved, with error handling
+            try {
+                if (darkMode) {
+                    document.body.classList.add('dark-mode');
+                }
+            } catch (e) {
+                // In case localStorage access fails, default to light mode
+            }
+            
+            // Shortcut data
+            const shortcuts = [
+                // Basic Commands
+                { category: "basic", command: "Record", keys: ["R"], description: "Start recording" },
+                { category: "basic", command: "Capture Recording", keys: ["Shift", "R"], description: "Capture recent performance even if record wasn't on" },
+                { category: "basic", command: "Metronome", keys: ["K"], description: "Toggle metronome on/off" },
+                { category: "basic", command: "Solo Track", keys: ["S"], description: "Solo selected track" },
+                { category: "basic", command: "Mute Track", keys: ["M"], description: "Mute selected track" },
+                { category: "basic", command: "Piano Roll", keys: ["P"], description: "Toggle piano roll view" },
+                { category: "basic", command: "Editor Window", keys: ["E"], description: "Toggle editor window" },
+                { category: "basic", command: "Library", keys: ["Y"], description: "Toggle library" },
+                { category: "basic", command: "Inspector", keys: ["I"], description: "Toggle inspector" },
+                { category: "basic", command: "Automation", keys: ["A"], description: "Toggle automation view" },
+                { category: "basic", command: "Global Tracks", keys: ["G"], description: "Toggle global tracks" },
+                { category: "basic", command: "Move Playhead Back", keys: [","], description: "Move playhead back 1 bar" },
+                { category: "basic", command: "Move Playhead Forward", keys: ["."], description: "Move playhead forward 1 bar" },
+                { category: "basic", command: "Move Playhead Back 8 Bars", keys: ["Shift", ","], description: "Move playhead back 8 bars" },
+                { category: "basic", command: "Move Playhead Forward 8 Bars", keys: ["Shift", "."], description: "Move playhead forward 8 bars" },
+                { category: "basic", command: "Save", keys: ["Cmd", "S"], description: "Save project" },
+                { category: "basic", command: "Undo", keys: ["Cmd", "Z"], description: "Undo last action" },
+                { category: "basic", command: "Redo", keys: ["Shift", "Cmd", "Z"], description: "Redo last action" },
+                { category: "basic", command: "Copy", keys: ["Cmd", "C"], description: "Copy selection" },
+                { category: "basic", command: "Paste", keys: ["Cmd", "V"], description: "Paste from clipboard" },
+                { category: "basic", command: "Delete", keys: ["Backspace"], description: "Delete selection" },
+                { category: "basic", command: "Duplicate Track", keys: ["Cmd", "D"], description: "Create new track with duplicate settings" },
+                
+                // Main View in Logic Pro
+                { category: "main-view", command: "Library", keys: ["Y"], description: "Toggle library view" },
+                { category: "main-view", command: "Inspector", keys: ["I"], description: "Toggle inspector view" },
+                { category: "main-view", command: "Toolbar", keys: ["Ctrl", "Option", "Cmd", "T"], description: "Toggle toolbar" },
+                { category: "main-view", command: "Smart Controls", keys: ["B"], description: "Toggle smart controls" },
+                { category: "main-view", command: "Mixer", keys: ["X"], description: "Toggle mixer view" },
+                { category: "main-view", command: "Editors", keys: ["E"], description: "Toggle editor view" },
+                { category: "main-view", command: "Piano Roll", keys: ["P"], description: "Toggle piano roll view" },
+                { category: "main-view", command: "Score Editor", keys: ["N"], description: "Toggle score editor" },
+                { category: "main-view", command: "Apple Loops Browser", keys: ["O"], description: "Toggle Apple loops browser" },
+                { category: "main-view", command: "Media Browser", keys: ["F"], description: "Toggle media browser" },
+                
+                // Track Creation
+                { category: "track-creation", command: "New Track", keys: ["Cmd", "N"], description: "Create new track with selection window" },
+                { category: "track-creation", command: "New Audio Track", keys: ["Option", "Cmd", "A"], description: "Create new audio track" },
+                { category: "track-creation", command: "New Soft Instrument Track", keys: ["Option", "Cmd", "S"], description: "Create new software instrument track" },
+                { category: "track-creation", command: "New Drummer Track", keys: ["Option", "Cmd", "U"], description: "Create new drummer track" },
+                { category: "track-creation", command: "Duplicate Track", keys: ["Cmd", "D"], description: "Create new track with duplicate settings" },
+                
+                // Navigation
+                { category: "navigation", command: "Forward 1 Bar", keys: ["."], description: "Move playhead forward 1 bar" },
+                { category: "navigation", command: "Rewind 1 Bar", keys: [","], description: "Move playhead back 1 bar" },
+                { category: "navigation", command: "Forward 8 Bars", keys: ["Shift", "."], description: "Move playhead forward 8 bars" },
+                { category: "navigation", command: "Reverse 8 Bars", keys: ["Shift", ","], description: "Move playhead back 8 bars" },
+                { category: "navigation", command: "Go to Home", keys: ["Numpad 0"], description: "Move playhead to beginning" },
+                { category: "navigation", command: "Go to Previous Marker", keys: ["Option", ","], description: "Move to previous marker" },
+                { category: "navigation", command: "Go to Next Marker", keys: ["Option", "."], description: "Move to next marker" },
+                
+                // Zoom
+                { category: "zoom", command: "Zoom to Selection", keys: ["Z"], description: "Zoom to selection or all content" },
+                { category: "zoom", command: "Zoom Tool", keys: ["Ctrl", "Option"], description: "Temporary zoom tool" },
+                { category: "zoom", command: "Zoom Height", keys: ["Cmd", "Up/Down Arrow"], description: "Zoom track height" },
+                { category: "zoom", command: "Zoom Sequencer", keys: ["Cmd", "Left/Right Arrow"], description: "Zoom in/out horizontally" },
+                
+                // Transport Controls
+                { category: "transport", command: "Play", keys: ["Spacebar"], description: "Start/stop playback" },
+                { category: "transport", command: "Play from Selection", keys: ["Shift", "Spacebar"], description: "Start playback from selection" },
+                { category: "transport", command: "Record", keys: ["R"], description: "Start/stop recording" },
+                { category: "transport", command: "Cycle Mode", keys: ["C"], description: "Toggle cycle mode" },
+                { category: "transport", command: "Capture Recording", keys: ["Shift", "R"], description: "Capture most recent performance" },
+                
+                // Recording & Playback
+                { category: "recording", command: "Metronome", keys: ["K"], description: "Toggle metronome" },
+                { category: "recording", command: "Count-In", keys: ["Shift", "K"], description: "Toggle count-in" },
+                { category: "recording", command: "Solo Tracks", keys: ["S"], description: "Solo selected tracks" },
+                { category: "recording", command: "Mute Tracks", keys: ["M"], description: "Mute selected tracks" },
+                
+                // Editing & Workflow
+                { category: "editing", command: "Quantize", keys: ["Q"], description: "Quantize selected notes/regions" },
+                { category: "editing", command: "Snap to Grid", keys: ["Cmd", "G"], description: "Toggle snap to grid" },
+                { category: "editing", command: "Split Regions", keys: ["Cmd", "T"], description: "Split regions/notes at playhead" },
+                { category: "editing", command: "Join Regions", keys: ["J"], description: "Join regions on the same track" },
+                
+                // Piano Roll
+                { category: "piano-roll", command: "Move Note Up/Down", keys: ["Option", "Up/Down"], description: "Move note up/down by semitone" },
+                { category: "piano-roll", command: "Move Note by Octave", keys: ["Shift", "Option", "Up/Down"], description: "Move note up/down by octave" },
+                { category: "piano-roll", command: "Force Legato", keys: ["F2"], description: "Make notes play legato" },
+                
+                // Automation
+                { category: "automation", command: "Toggle Automation", keys: ["A"], description: "Show/hide automation" },
+                { category: "automation", command: "Create Curve", keys: ["Ctrl", "Shift", "Drag"], description: "Create automation curve between points" }
+            ];
+            
+            // Get unique categories
+            const categories = ['all', ...new Set(shortcuts.map(s => s.category))];
+            
+            // Create category tabs in sidebar
+            categories.forEach(category => {
+                const tabItem = document.createElement('li');
+                tabItem.className = 'tab-item';
+                
+                const tabButton = document.createElement('button');
+                tabButton.className = `tab-button ${category === currentCategory ? 'active' : ''}`;
+                tabButton.textContent = formatCategoryName(category);
+                tabButton.dataset.category = category;
+                tabButton.addEventListener('click', () => {
+                    document.querySelectorAll('.tab-button').forEach(t => t.classList.remove('active'));
+                    tabButton.classList.add('active');
+                    currentCategory = category;
+                    renderShortcuts();
+                });
+                
+                tabItem.appendChild(tabButton);
+                categoryTabs.appendChild(tabItem);
+            });
+            
+            // Format category name for display
+            function formatCategoryName(category) {
+                return category === 'all' ? 'All Shortcuts' : 
+                    category.split('-')
+                        .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+                        .join(' ');
+            }
+            
+            // Favorites toggle event listener
+            favoritesToggle.addEventListener('change', function() {
+                showFavoritesOnly = this.checked;
+                renderShortcuts();
+            });
+            
+            // Render shortcuts based on current category, favorites setting, and search term
+            function renderShortcuts() {
+                shortcutsContainer.innerHTML = '';
+                
+                const searchTerm = searchInput.value.toLowerCase();
+                let filteredShortcuts = [];
+                
+                if (showFavoritesOnly) {
+                    filteredShortcuts = shortcuts.filter(shortcut => 
+                        favorites.includes(`${shortcut.category}-${shortcut.command}`) &&
+                        (currentCategory === 'all' || shortcut.category === currentCategory) &&
+                        (searchTerm === '' || 
+                         shortcut.command.toLowerCase().includes(searchTerm) || 
+                         shortcut.description.toLowerCase().includes(searchTerm) ||
+                         shortcut.keys.join(' ').toLowerCase().includes(searchTerm))
+                    );
+                } else {
+                    filteredShortcuts = shortcuts.filter(shortcut => 
+                        (currentCategory === 'all' || shortcut.category === currentCategory) &&
+                        (searchTerm === '' || 
+                         shortcut.command.toLowerCase().includes(searchTerm) || 
+                         shortcut.description.toLowerCase().includes(searchTerm) ||
+                         shortcut.keys.join(' ').toLowerCase().includes(searchTerm))
+                    );
+                }
+                
+                // Group by category if in 'all' view with no search
+                if (currentCategory === 'all' && searchTerm === '') {
+                    const categoryGroups = {};
+                    
+                    // Group shortcuts by category
+                    filteredShortcuts.forEach(shortcut => {
+                        if (!categoryGroups[shortcut.category]) {
+                            categoryGroups[shortcut.category] = [];
+                        }
+                        categoryGroups[shortcut.category].push(shortcut);
+                    });
+                    
+                    // Render each category
+                    Object.keys(categoryGroups).forEach(category => {
+                        const heading = document.createElement('h2');
+                        heading.className = 'category-heading';
+                        heading.textContent = formatCategoryName(category);
+                        shortcutsContainer.appendChild(heading);
+                        
+                        const grid = document.createElement('div');
+                        grid.className = 'shortcuts-grid';
+                        
+                        categoryGroups[category].forEach(shortcut => {
+                            grid.appendChild(createShortcutCard(shortcut));
+                        });
+                        
+                        shortcutsContainer.appendChild(grid);
+                    });
+                } else {
+                    // Render as single grid for specific category or search
+                    const grid = document.createElement('div');
+                    grid.className = 'shortcuts-grid';
+                    
+                    if (filteredShortcuts.length > 0) {
+                        filteredShortcuts.forEach(shortcut => {
+                            grid.appendChild(createShortcutCard(shortcut));
+                        });
+                    } else {
+                        const noResults = document.createElement('div');
+                        noResults.className = 'no-results';
+                        noResults.textContent = showFavoritesOnly 
+                            ? 'No favorites found matching your criteria.' 
+                            : 'No shortcuts found matching your search.';
+                        grid.appendChild(noResults);
+                    }
+                    
+                    shortcutsContainer.appendChild(grid);
+                }
+            }
+            
+            // Create shortcut card element
+            function createShortcutCard(shortcut) {
+                const card = document.createElement('div');
+                card.className = 'shortcut-card';
+                
+                const favoriteKey = `${shortcut.category}-${shortcut.command}`;
+                const isFavorite = favorites.includes(favoriteKey);
+                
+                // Favorite button
+                const favoriteBtn = document.createElement('button');
+                favoriteBtn.className = `favorite-btn ${isFavorite ? 'active' : ''}`;
+                favoriteBtn.innerHTML = '★';
+                favoriteBtn.setAttribute('aria-label', isFavorite ? 'Remove from favorites' : 'Add to favorites');
+                favoriteBtn.addEventListener('click', function() {
+                    toggleFavorite(favoriteKey, favoriteBtn);
+                });
+                
+                // Command
+                const commandElement = document.createElement('div');
+                commandElement.className = 'command';
+                commandElement.textContent = shortcut.command;
+                
+                // Keys container
+                const keysContainer = document.createElement('div');
+                keysContainer.className = 'keys-container';
+                
+                shortcut.keys.forEach(key => {
+                    const keyElement = document.createElement('span');
+                    keyElement.className = 'key';
+                    keyElement.textContent = key;
+                    keysContainer.appendChild(keyElement);
+                });
+                
+                // Description
+                const descriptionElement = document.createElement('div');
+                descriptionElement.className = 'description';
+                descriptionElement.textContent = shortcut.description;
+                
+                // Append everything to card
+                card.appendChild(favoriteBtn);
+                card.appendChild(commandElement);
+                card.appendChild(keysContainer);
+                card.appendChild(descriptionElement);
+                
+                return card;
+            }
+            
+            // Toggle favorite status
+            function toggleFavorite(key, buttonElement) {
+                const index = favorites.indexOf(key);
+                
+                if (index === -1) {
+                    // Add to favorites
+                    favorites.push(key);
+                    buttonElement.classList.add('active');
+                } else {
+                    // Remove from favorites
+                    favorites.splice(index, 1);
+                    buttonElement.classList.remove('active');
+                }
+                
+                saveFavorites();
+                
+                // Re-render if we're showing favorites only
+                if (showFavoritesOnly) {
+                    renderShortcuts();
+                }
+            }
+            
+            // Save favorites to localStorage with error handling
+            function saveFavorites() {
+                try {
+                    localStorage.setItem('logicProFavorites', JSON.stringify(favorites));
+                } catch (e) {
+                    console.log('Storage not available, favorites will not persist.');
+                }
+            }
+            
+            // Load favorites from localStorage with error handling
+            function loadFavorites() {
+                try {
+                    const saved = localStorage.getItem('logicProFavorites');
+                    return saved ? JSON.parse(saved) : [];
+                } catch (e) {
+                    console.log('Storage not available, favorites will not persist.');
+                    return [];
+                }
+            }
+            
+            // Event listeners
+            searchInput.addEventListener('input', renderShortcuts);
+            
+            // Dark mode toggle
+            darkModeToggle.addEventListener('click', function() {
+                document.body.classList.toggle('dark-mode');
+                darkMode = document.body.classList.contains('dark-mode');
+                try {
+                    localStorage.setItem('logicProDarkMode', darkMode);
+                } catch (e) {
+                    console.log('Storage not available, dark mode preference will not persist.');
+                }
+            });
+            
+            // Keyboard shortcuts for the tool itself
+            document.addEventListener('keydown', function(e) {
+                // Press / to focus search
+                if (e.key === '/' && document.activeElement !== searchInput) {
+                    e.preventDefault();
+                    searchInput.focus();
+                }
+                
+                // Press Escape to clear search
+                if (e.key === 'Escape' && document.activeElement === searchInput) {
+                    searchInput.value = '';
+                    renderShortcuts();
+                }
+            });
+            
+            // Initial render
+            renderShortcuts();
+        });
+    </script>
+</body>
+</html>
