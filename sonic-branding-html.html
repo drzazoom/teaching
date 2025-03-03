@@ -1,0 +1,619 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sonic Branding: Interactive Guide</title>
+  <style>
+    /* Base styles */
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #EFF6FF; /* blue-50 */
+      color: #1F2937;
+      line-height: 1.6;
+    }
+
+    .container {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+
+    header {
+      background-color: #4338CA; /* indigo-700 */
+      color: white;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      margin-bottom: 20px;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: 24px;
+    }
+
+    /* Tab navigation */
+    .tabs {
+      display: flex;
+      background-color: white;
+      border-top-left-radius: 8px;
+      border-top-right-radius: 8px;
+      overflow: hidden;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    .tab {
+      padding: 10px 15px;
+      cursor: pointer;
+      background-color: white;
+      border: none;
+      font-size: 16px;
+    }
+
+    .tab:hover:not(.active) {
+      background-color: #EEF2FF; /* indigo-50 */
+    }
+
+    .tab.active {
+      background-color: #4338CA; /* indigo-700 */
+      color: white;
+    }
+
+    /* Content panel */
+    .content-panel {
+      background-color: white;
+      padding: 20px;
+      border-bottom-left-radius: 8px;
+      border-bottom-right-radius: 8px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      margin-bottom: 20px;
+    }
+
+    .tab-content {
+      display: none;
+    }
+
+    .tab-content.active {
+      display: block;
+    }
+
+    /* Cards and sections */
+    .card {
+      background-color: #EEF2FF; /* indigo-50 */
+      border-radius: 6px;
+      padding: 15px;
+      margin-bottom: 15px;
+    }
+
+    .category-card {
+      background-color: #EEF2FF; /* indigo-50 */
+      border-radius: 6px;
+      padding: 15px;
+      margin-bottom: 10px;
+    }
+
+    .highlight {
+      background-color: #4338CA; /* indigo-700 */
+      color: white;
+      border-radius: 6px;
+      padding: 15px;
+      margin: 20px 0;
+    }
+
+    /* Lists */
+    ul {
+      padding-left: 25px;
+    }
+
+    li {
+      margin-bottom: 5px;
+    }
+
+    /* Buttons */
+    .btn {
+      padding: 8px 16px;
+      border-radius: 4px;
+      font-weight: bold;
+      cursor: pointer;
+      border: none;
+      font-size: 14px;
+    }
+
+    .btn-primary {
+      background-color: #4338CA; /* indigo-700 */
+      color: white;
+    }
+
+    .btn-primary:hover {
+      background-color: #3730A3; /* indigo-800 */
+    }
+
+    .btn-secondary {
+      background-color: #4B5563; /* gray-600 */
+      color: white;
+    }
+
+    .btn-secondary:hover {
+      background-color: #374151; /* gray-700 */
+    }
+
+    .btn-disabled {
+      background-color: #D1D5DB; /* gray-300 */
+      cursor: not-allowed;
+    }
+
+    /* Quiz styles */
+    .question {
+      margin-bottom: 30px;
+      padding-bottom: 20px;
+      border-bottom: 1px solid #E5E7EB; /* gray-200 */
+    }
+
+    .question:last-child {
+      border-bottom: none;
+    }
+
+    .option {
+      padding: 10px;
+      border: 1px solid #D1D5DB; /* gray-300 */
+      border-radius: 6px;
+      margin-bottom: 8px;
+      cursor: pointer;
+      display: flex;
+      align-items: flex-start;
+    }
+
+    .option:hover {
+      border-color: #818CF8; /* indigo-400 */
+    }
+
+    .option.selected {
+      background-color: #EEF2FF; /* indigo-50 */
+      border-color: #6366F1; /* indigo-500 */
+    }
+
+    .option.correct {
+      background-color: #D1FAE5; /* green-100 */
+      border-color: #10B981; /* green-500 */
+    }
+
+    .option.incorrect {
+      background-color: #FEE2E2; /* red-100 */
+      border-color: #EF4444; /* red-500 */
+    }
+
+    .radio-circle {
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      border: 2px solid #9CA3AF; /* gray-400 */
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      margin-right: 10px;
+      margin-top: 2px;
+      flex-shrink: 0;
+    }
+
+    .option.selected .radio-circle {
+      border-color: #6366F1; /* indigo-500 */
+    }
+
+    .radio-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background-color: #6366F1; /* indigo-500 */
+      display: none;
+    }
+
+    .option.selected .radio-dot {
+      display: block;
+    }
+
+    .feedback {
+      margin-top: 10px;
+      padding: 10px;
+      background-color: #F9FAFB; /* gray-50 */
+      border-radius: 6px;
+      display: none;
+    }
+
+    .buttons-container {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      margin-top: 20px;
+    }
+
+    .result-box {
+      background-color: #EEF2FF; /* indigo-50 */
+      border-radius: 6px;
+      padding: 15px;
+      margin-top: 20px;
+      text-align: center;
+      display: none;
+    }
+
+    .tips-box {
+      background-color: white;
+      border-radius: 6px;
+      padding: 15px;
+      margin-top: 15px;
+      text-align: left;
+    }
+
+    /* Definition toggle */
+    .definition {
+      display: none;
+      margin: 15px 0;
+    }
+
+    /* Responsive */
+    @media (max-width: 640px) {
+      .tabs {
+        flex-direction: column;
+      }
+
+      .buttons-container {
+        flex-direction: column;
+      }
+
+      .btn {
+        width: 100%;
+        margin-bottom: 8px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>Sonic Branding: Interactive Guide</h1>
+      <p>For ESL Music Students</p>
+    </header>
+
+    <!-- Tab Navigation -->
+    <div class="tabs">
+      <button class="tab active" data-tab="intro">Introduction</button>
+      <button class="tab" data-tab="elements">Key Elements</button>
+      <button class="tab" data-tab="quiz">Quiz</button>
+    </div>
+
+    <!-- Content Panels -->
+    <div class="content-panel">
+      <!-- Introduction Tab -->
+      <div id="intro" class="tab-content active">
+        <h2>What is Sonic Branding?</h2>
+        
+        <p>
+          Sonic branding (also called audio branding) is how companies use sound to represent their brand. 
+          It includes "every single sound a company makes that can be heard, wherever that is."
+        </p>
+        
+        <button id="definition-toggle" class="btn btn-primary">Show Full Definition</button>
+        
+        <div id="full-definition" class="definition card">
+          <p class="italic">
+            "Audio branding is defined as the structured integration of acoustic elements into a brand and its identity. 
+            Beyond a sonic logo, it encompasses the systematic establishment of a business' entire audio language for 
+            its brand based on its essence, vision, values promise, and personality."
+          </p>
+        </div>
+        
+        <h3>Sonic branding includes:</h3>
+        
+        <div class="category-grid">
+          <div class="category-card">
+            <h4>Sonic Logos</h4>
+            <p>Short sound clips that represent the brand</p>
+          </div>
+          
+          <div class="category-card">
+            <h4>Jingles</h4>
+            <p>Short musical pieces with or without words</p>
+          </div>
+          
+          <div class="category-card">
+            <h4>Store Music</h4>
+            <p>Background music and sounds in physical locations</p>
+          </div>
+          
+          <div class="category-card">
+            <h4>Voice Guidelines</h4>
+            <p>How people should speak when representing the brand</p>
+          </div>
+        </div>
+        
+        <div class="highlight">
+          <h3>Why Sonic Branding Matters</h3>
+          <ul>
+            <li>Better brand recognition</li>
+            <li>Stronger memory of the brand</li>
+            <li>Creates emotional connections</li>
+            <li>Cuts through visual noise</li>
+            <li>Influences consumer behavior</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Key Elements Tab -->
+      <div id="elements" class="tab-content">
+        <h2>What Makes Good Sonic Branding?</h2>
+        
+        <div class="section">
+          <h3>1. Match Your Brand Identity</h3>
+          <div class="card">
+            <p>Your sounds should match:</p>
+            <ul>
+              <li>What your brand believes in (values)</li>
+              <li>How your brand would act if it were a person (personality)</li>
+              <li>Who your brand wants to talk to (audience)</li>
+            </ul>
+            <p class="quote">"To figure out the soul and the backbone of the brand."</p>
+          </div>
+        </div>
+        
+        <div class="section">
+          <h3>2. Create a Strong Sonic Logo</h3>
+          <div class="card">
+            <p>A good sonic logo is:</p>
+            <ul>
+              <li><strong>Easy to Remember:</strong> Simple enough to recall after hearing once or twice</li>
+              <li><strong>Different:</strong> Not like other brands' sounds</li>
+              <li><strong>Flexible:</strong> Can work in different situations and on different devices</li>
+              <li><strong>Short:</strong> Ideally under two seconds</li>
+              <li><strong>True to Brand:</strong> Sounds like what your brand represents</li>
+            </ul>
+          </div>
+        </div>
+        
+        <div class="section">
+          <h3>3. Be Strategic and Consistent</h3>
+          <div class="card">
+            <p>For sonic branding to work well:</p>
+            <ul>
+              <li>It should match your visual brand elements</li>
+              <li>Use it the same way across all places people encounter your brand</li>
+              <li>Only use sound where people expect to hear sound</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- Quiz Tab -->
+      <div id="quiz" class="tab-content">
+        <h2>Test Your Knowledge</h2>
+        
+        <p>Answer these questions to test your understanding of sonic branding:</p>
+        
+        <div id="quiz-questions">
+          <!-- Questions will be dynamically inserted here -->
+        </div>
+        
+        <div class="buttons-container">
+          <button id="check-answers" class="btn btn-disabled" disabled>Check Answers</button>
+          <button id="reset-quiz" class="btn btn-secondary">Reset Quiz</button>
+        </div>
+        
+        <div id="quiz-results" class="result-box">
+          <p class="score">Your Score: <span id="score">0</span> out of 5</p>
+          
+          <div class="tips-box">
+            <h3>What Makes Sonic Branding Effective?</h3>
+            <ul>
+              <li>Sonic elements should be short and memorable</li>
+              <li>Each sound should have a distinctive character that fits the brand's identity</li>
+              <li>Sounds should be used consistently across all touchpoints</li>
+              <li>Sonic elements should work across multiple platforms and contexts</li>
+              <li>They should align with the visual identity of the brand</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <footer>
+      <p style="text-align: center; color: #6B7280; font-size: 14px;">Based on Sonic Branding Guide for ESL Music Students</p>
+    </footer>
+  </div>
+
+  <script>
+    // Quiz questions
+    const questions = [
+      {
+        id: 'q1',
+        question: 'What is sonic branding?',
+        options: [
+          'Just background music in stores',
+          'Every sound a company makes that represents their brand',
+          'Only radio advertising',
+          'The sound a product makes when used'
+        ],
+        correctAnswer: 1
+      },
+      {
+        id: 'q2',
+        question: 'What makes a good sonic logo?',
+        options: [
+          'Being as long as possible',
+          'Using complex musical arrangements',
+          'Being memorable, distinctive, and short',
+          'Sounding exactly like competitors'
+        ],
+        correctAnswer: 2
+      },
+      {
+        id: 'q3',
+        question: 'How does sound affect humans?',
+        options: [
+          'Only emotionally',
+          'Only physically',
+          'It has no real effect on humans',
+          'Physiologically, psychologically, cognitively, and behaviorally'
+        ],
+        correctAnswer: 3
+      },
+      {
+        id: 'q4',
+        question: 'What characteristics are important for an effective sonic logo?',
+        options: [
+          'Complexity and length',
+          'Loudness and aggressiveness',
+          'Memorability, distinctiveness, flexibility, conciseness, and brand fit',
+          'Being exactly the same as popular music'
+        ],
+        correctAnswer: 2
+      },
+      {
+        id: 'q5',
+        question: 'How do sonic elements help create brand associations in consumers\' minds?',
+        options: [
+          'They make people consciously think about buying products',
+          'They create and strengthen memory connections through repeated exposure',
+          'They directly convince consumers to purchase products',
+          'They only work for large companies with big marketing budgets'
+        ],
+        correctAnswer: 1
+      }
+    ];
+
+    // Selected answers
+    let selectedAnswers = {};
+
+    // DOM Elements
+    const tabButtons = document.querySelectorAll('.tab');
+    const tabContents = document.querySelectorAll('.tab-content');
+    const definitionToggle = document.getElementById('definition-toggle');
+    const fullDefinition = document.getElementById('full-definition');
+    const quizContainer = document.getElementById('quiz-questions');
+    const checkAnswersButton = document.getElementById('check-answers');
+    const resetQuizButton = document.getElementById('reset-quiz');
+    const quizResults = document.getElementById('quiz-results');
+    const scoreDisplay = document.getElementById('score');
+
+    // Setup tabs
+    tabButtons.forEach(button => {
+      button.addEventListener('click', () => {
+        // Remove active class from all tabs
+        tabButtons.forEach(btn => btn.classList.remove('active'));
+        tabContents.forEach(content => content.classList.remove('active'));
+        
+        // Add active class to clicked tab
+        button.classList.add('active');
+        document.getElementById(button.dataset.tab).classList.add('active');
+      });
+    });
+
+    // Definition toggle
+    definitionToggle.addEventListener('click', () => {
+      const isHidden = fullDefinition.style.display === 'none' || fullDefinition.style.display === '';
+      fullDefinition.style.display = isHidden ? 'block' : 'none';
+      definitionToggle.textContent = isHidden ? 'Hide Full Definition' : 'Show Full Definition';
+    });
+
+    // Generate quiz questions
+    function generateQuiz() {
+      quizContainer.innerHTML = '';
+      
+      questions.forEach((q, index) => {
+        const questionElement = document.createElement('div');
+        questionElement.className = 'question';
+        questionElement.innerHTML = `
+          <h3>Question ${index + 1}: ${q.question}</h3>
+          <div class="options">
+            ${q.options.map((option, optIndex) => `
+              <div class="option" data-question="${q.id}" data-option="${optIndex}">
+                <div class="radio-circle">
+                  <div class="radio-dot"></div>
+                </div>
+                <span>${option}</span>
+              </div>
+            `).join('')}
+          </div>
+          <div class="feedback"></div>
+        `;
+        
+        quizContainer.appendChild(questionElement);
+      });
+
+      // Add click event to options
+      document.querySelectorAll('.option').forEach(option => {
+        option.addEventListener('click', () => {
+          const questionId = option.dataset.question;
+          const optionIndex = parseInt(option.dataset.option);
+          
+          // Remove selected class from all options in this question
+          document.querySelectorAll(`.option[data-question="${questionId}"]`).forEach(opt => {
+            opt.classList.remove('selected');
+          });
+          
+          // Add selected class to clicked option
+          option.classList.add('selected');
+          
+          // Store answer
+          selectedAnswers[questionId] = optionIndex;
+          
+          // Check if all questions are answered
+          checkAnswersButton.disabled = Object.keys(selectedAnswers).length < questions.length;
+          checkAnswersButton.className = Object.keys(selectedAnswers).length < questions.length ? 
+            'btn btn-disabled' : 'btn btn-primary';
+        });
+      });
+    }
+
+    // Check answers
+    checkAnswersButton.addEventListener('click', () => {
+      let score = 0;
+      
+      questions.forEach(q => {
+        const selectedOption = document.querySelector(`.option[data-question="${q.id}"][data-option="${selectedAnswers[q.id]}"]`);
+        const correctOption = document.querySelector(`.option[data-question="${q.id}"][data-option="${q.correctAnswer}"]`);
+        const feedback = selectedOption.parentElement.nextElementSibling;
+        
+        if (selectedAnswers[q.id] === q.correctAnswer) {
+          selectedOption.classList.add('correct');
+          feedback.textContent = '✅ Correct!';
+          score++;
+        } else {
+          selectedOption.classList.add('incorrect');
+          correctOption.classList.add('correct');
+          feedback.textContent = `❌ Incorrect. The right answer is: ${q.options[q.correctAnswer]}`;
+        }
+        
+        feedback.style.display = 'block';
+      });
+      
+      // Display results
+      scoreDisplay.textContent = score;
+      quizResults.style.display = 'block';
+      
+      // Disable options
+      document.querySelectorAll('.option').forEach(option => {
+        option.style.pointerEvents = 'none';
+      });
+      
+      // Hide check button, keep reset button
+      checkAnswersButton.style.display = 'none';
+    });
+
+    // Reset quiz
+    resetQuizButton.addEventListener('click', () => {
+      selectedAnswers = {};
+      checkAnswersButton.disabled = true;
+      checkAnswersButton.className = 'btn btn-disabled';
+      checkAnswersButton.style.display = 'inline-block';
+      quizResults.style.display = 'none';
+      
+      // Regenerate quiz
+      generateQuiz();
+    });
+
+    // Initialize quiz
+    generateQuiz();
+  </script>
+</body>
+</html>
