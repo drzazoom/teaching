@@ -1,0 +1,886 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gravity Sound Design Quiz</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        
+        h1 {
+            color: #2c3e50;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        
+        .quiz-container {
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            margin-bottom: 30px;
+        }
+        
+        .question {
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .question-text {
+            font-weight: bold;
+            font-size: 18px;
+            margin-bottom: 15px;
+        }
+        
+        .options {
+            margin-left: 10px;
+        }
+        
+        .option {
+            margin-bottom: 10px;
+            display: flex;
+            align-items: flex-start;
+        }
+        
+        .option input {
+            margin-top: 5px;
+            margin-right: 10px;
+        }
+        
+        .option label {
+            flex: 1;
+        }
+        
+        .multi-select .option-letter {
+            margin-right: 10px;
+        }
+        
+        .explanation {
+            margin-top: 15px;
+            padding: 15px;
+            border-radius: 5px;
+            display: none;
+            background-color: #f8f9fa;
+            border-left: 4px solid #6c757d;
+        }
+        
+        .correct-answer {
+            font-weight: bold;
+            color: #28a745;
+            margin-bottom: 10px;
+        }
+        
+        .wrong-answers {
+            margin-top: 15px;
+        }
+        
+        .wrong-answer-item {
+            margin-bottom: 8px;
+        }
+        
+        button {
+            background-color: #4b6cb7;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: background-color 0.3s;
+        }
+        
+        button:hover {
+            background-color: #3a5a99;
+        }
+        
+        .check-btn {
+            margin-top: 10px;
+        }
+        
+        .result-container {
+            text-align: center;
+            margin-top: 20px;
+            font-weight: bold;
+            font-size: 18px;
+        }
+        
+        .highlight-correct {
+            background-color: rgba(40, 167, 69, 0.2) !important;
+        }
+        
+        .highlight-incorrect {
+            background-color: rgba(220, 53, 69, 0.2) !important;
+        }
+        
+        #submit-quiz {
+            display: block;
+            margin: 20px auto;
+            padding: 12px 25px;
+            font-size: 16px;
+            background-color: #2c3e50;
+        }
+        
+        #submit-quiz:hover {
+            background-color: #1a252f;
+        }
+        
+        #score-display {
+            text-align: center;
+            font-size: 20px;
+            margin-top: 20px;
+            font-weight: bold;
+            display: none;
+        }
+        
+        .review-answers {
+            margin-top: 20px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <h1>Gravity Film Sound Design Quiz</h1>
+    
+    <div class="quiz-container" id="quiz">
+        <!-- Questions will be inserted here by JavaScript -->
+    </div>
+    
+    <button id="submit-quiz">Submit Quiz</button>
+    
+    <div id="score-display"></div>
+    
+    <div class="review-answers">
+        <button id="show-all-explanations">Show All Explanations</button>
+    </div>
+
+    <script>
+        // Quiz data
+        const quizData = [
+            {
+                question: "The absence of sound in many space scenes of Gravity primarily serves to:",
+                type: "single",
+                options: [
+                    { text: "Avoid audiovisual dissonance", isCorrect: false },
+                    { text: "Create a sense of isolation and tension", isCorrect: true },
+                    { text: "Adhere strictly to scientific accuracy", isCorrect: false },
+                    { text: "Simplify the sound mix", isCorrect: false }
+                ],
+                correctExplanation: "The absence of sound enhances the feeling of isolation and tension, emphasizing the vast emptiness and danger of space.",
+                wrongExplanations: [
+                    { option: "a) Avoid audiovisual dissonance", explanation: "While avoiding dissonance is important, it's not the primary purpose of silence in space scenes." },
+                    { option: "c) Adhere strictly to scientific accuracy", explanation: "While scientifically accurate, this isn't the primary narrative purpose." },
+                    { option: "d) Simplify the sound mix", explanation: "Simplification isn't the main goal; emotional impact is." }
+                ]
+            },
+            {
+                question: "The heartbeat sounds heard during tense moments in the film are best classified as:",
+                type: "single",
+                options: [
+                    { text: "Ambient sound", isCorrect: false },
+                    { text: "Diegetic sound", isCorrect: false },
+                    { text: "Non-diegetic sound", isCorrect: true },
+                    { text: "Sound effects", isCorrect: false }
+                ],
+                correctExplanation: "Heartbeat sounds are not heard by the characters themselves but are used to convey tension to the audience.",
+                wrongExplanations: [
+                    { option: "a) Ambient sound", explanation: "Ambient sounds are background noises, not specific emotional cues like heartbeats." },
+                    { option: "b) Diegetic sound", explanation: "Diegetic sounds are heard by characters, which heartbeats are not." },
+                    { option: "d) Sound effects", explanation: "While heartbeats could be considered sound effects, they are more accurately described as non-diegetic." }
+                ]
+            },
+            {
+                question: "When Dr. Stone's breathing becomes audible inside her helmet, it can best be described as an example of:",
+                type: "single",
+                options: [
+                    { text: "Foley", isCorrect: false },
+                    { text: "Sound perspective", isCorrect: false },
+                    { text: "Sweetening", isCorrect: false },
+                    { text: "Diegetic first-person sound", isCorrect: true }
+                ],
+                correctExplanation: "This sound is heard by Dr. Stone herself, making it diegetic and first-person.",
+                wrongExplanations: [
+                    { option: "a) Foley", explanation: "Foley refers to sound effects created in post-production, not necessarily diegetic sounds." },
+                    { option: "b) Sound perspective", explanation: "While sound perspective is relevant, it doesn't specifically describe Dr. Stone's breathing as diegetic." },
+                    { option: "c) Sweetening", explanation: "Sweetening involves enhancing existing sounds, not creating diegetic ones." }
+                ]
+            },
+            {
+                question: "The film's score, composed by Steven Price, notably avoids the use of:",
+                type: "single",
+                options: [
+                    { text: "Strings", isCorrect: false },
+                    { text: "Synthesizers", isCorrect: false },
+                    { text: "Percussion", isCorrect: true },
+                    { text: "Vocals", isCorrect: false }
+                ],
+                correctExplanation: "The score avoids traditional percussion to create a unique sound.",
+                wrongExplanations: [
+                    { option: "a) Strings", explanation: "Strings are used in the score." },
+                    { option: "b) Synthesizers", explanation: "Synthesizers are used to create the score's electronic elements." },
+                    { option: "d) Vocals", explanation: "Vocals are used in the score." }
+                ]
+            },
+            {
+                question: "The gradual increase in volume and intensity of music during action scenes is an example of:",
+                type: "single",
+                options: [
+                    { text: "Crescendo", isCorrect: true },
+                    { text: "Sound bridge", isCorrect: false },
+                    { text: "Leitmotif", isCorrect: false },
+                    { text: "Underscoring", isCorrect: false }
+                ],
+                correctExplanation: "A crescendo is a gradual increase in volume or intensity.",
+                wrongExplanations: [
+                    { option: "b) Sound bridge", explanation: "A sound bridge connects two scenes with sound." },
+                    { option: "c) Leitmotif", explanation: "A leitmotif is a recurring theme associated with a character or idea." },
+                    { option: "d) Underscoring", explanation: "Underscoring refers to music supporting the narrative, not specifically increasing in volume." }
+                ]
+            },
+            {
+                question: "The technique of using music to express the emotions of a scene, such as during Dr. Stone's moments of panic, is called:",
+                type: "single",
+                options: [
+                    { text: "Mickey-Mousing", isCorrect: false },
+                    { text: "Empathetic music", isCorrect: true },
+                    { text: "Anempathetic music", isCorrect: false },
+                    { text: "Underscoring", isCorrect: false }
+                ],
+                correctExplanation: "Empathetic music aligns with the emotional state of the characters.",
+                wrongExplanations: [
+                    { option: "a) Mickey-Mousing", explanation: "Mickey-Mousing involves music mimicking on-screen actions." },
+                    { option: "c) Anempathetic music", explanation: "Anempathetic music contrasts with the emotional state of the scene." },
+                    { option: "d) Underscoring", explanation: "While underscoring supports the narrative, it's broader than empathetic music." }
+                ]
+            },
+            {
+                question: "The sound of Dr. Stone's voice changing as she moves from inside to outside her spacesuit demonstrates:",
+                type: "single",
+                options: [
+                    { text: "Sound mixing", isCorrect: false },
+                    { text: "Layering", isCorrect: false },
+                    { text: "Sound perspective", isCorrect: true },
+                    { text: "Reverb", isCorrect: false }
+                ],
+                correctExplanation: "Sound perspective refers to how sound changes based on the listener's position.",
+                wrongExplanations: [
+                    { option: "a) Sound mixing", explanation: "Sound mixing involves combining audio elements, not changing sound quality based on position." },
+                    { option: "b) Layering", explanation: "Layering refers to combining multiple audio elements." },
+                    { option: "d) Reverb", explanation: "Reverb is an echo effect, not specifically related to sound perspective." }
+                ]
+            },
+            {
+                question: "In Gravity, the combination of multiple audio elements to create a complex sound experience is an example of:",
+                type: "single",
+                options: [
+                    { text: "Sound mixing", isCorrect: false },
+                    { text: "Layering", isCorrect: true },
+                    { text: "Sweetening", isCorrect: false },
+                    { text: "Homophony", isCorrect: false }
+                ],
+                correctExplanation: "Layering involves combining different audio elements.",
+                wrongExplanations: [
+                    { option: "a) Sound mixing", explanation: "While sound mixing is related, layering specifically refers to combining elements to create complexity." },
+                    { option: "c) Sweetening", explanation: "Sweetening enhances existing sounds, not combines them." },
+                    { option: "d) Homophony", explanation: "Homophony refers to multiple voices singing the same melody, not audio layering." }
+                ]
+            },
+            {
+                question: "The film's use of sound to represent the transfer of vibrations through physical contact in space is an example of:",
+                type: "single",
+                options: [
+                    { text: "Diegetic sound", isCorrect: true },
+                    { text: "Non-diegetic sound", isCorrect: false },
+                    { text: "Sound perspective", isCorrect: false },
+                    { text: "Audio dissolve", isCorrect: false }
+                ],
+                correctExplanation: "These vibrations are heard by the characters through their suits.",
+                wrongExplanations: [
+                    { option: "b) Non-diegetic sound", explanation: "Non-diegetic sounds are not heard by characters." },
+                    { option: "c) Sound perspective", explanation: "While sound perspective is relevant, it doesn't specifically describe these vibrations as diegetic." },
+                    { option: "d) Audio dissolve", explanation: "An audio dissolve is a gradual transition between sounds." }
+                ]
+            },
+            {
+                question: "The sudden absence of sound when transitioning from Earth to space scenes creates:",
+                type: "single",
+                options: [
+                    { text: "A sound bridge", isCorrect: false },
+                    { text: "Audiovisual dissonance", isCorrect: false },
+                    { text: "A hard cut", isCorrect: true },
+                    { text: "A sound lag", isCorrect: false }
+                ],
+                correctExplanation: "A hard cut is an abrupt transition between scenes.",
+                wrongExplanations: [
+                    { option: "a) A sound bridge", explanation: "A sound bridge connects two scenes with sound." },
+                    { option: "b) Audiovisual dissonance", explanation: "Dissonance refers to conflicting audio and visual elements." },
+                    { option: "d) A sound lag", explanation: "A sound lag is a delay between sound and visual elements." }
+                ]
+            },
+            {
+                question: "The use of music to evoke emotions that support the narrative of specific scenes is an example of:",
+                type: "single",
+                options: [
+                    { text: "Underscoring", isCorrect: true },
+                    { text: "Mickey-Mousing", isCorrect: false },
+                    { text: "Leitmotif", isCorrect: false },
+                    { text: "Sound perspective", isCorrect: false }
+                ],
+                correctExplanation: "Underscoring involves using music to support the narrative.",
+                wrongExplanations: [
+                    { option: "b) Mickey-Mousing", explanation: "Mickey-Mousing involves music mimicking on-screen actions." },
+                    { option: "c) Leitmotif", explanation: "A leitmotif is a recurring theme associated with a character or idea." },
+                    { option: "d) Sound perspective", explanation: "Sound perspective refers to how sound changes based on position." }
+                ]
+            },
+            {
+                question: "The technique of hearing sounds from Dr. Stone's perspective inside her spacesuit is:",
+                type: "single",
+                options: [
+                    { text: "Sound mixing", isCorrect: false },
+                    { text: "Point-of-audition", isCorrect: true },
+                    { text: "Acousmatic sound", isCorrect: false },
+                    { text: "Ambient sound", isCorrect: false }
+                ],
+                correctExplanation: "Point-of-audition refers to hearing sounds from a character's perspective.",
+                wrongExplanations: [
+                    { option: "a) Sound mixing", explanation: "Sound mixing involves combining audio elements." },
+                    { option: "c) Acousmatic sound", explanation: "Acousmatic sound is heard but not visually associated with its source." },
+                    { option: "d) Ambient sound", explanation: "Ambient sound refers to background noise." }
+                ]
+            },
+            {
+                question: "The gradual fading of radio transmissions as characters drift apart in space is an example of:",
+                type: "single",
+                options: [
+                    { text: "Sound bridge", isCorrect: false },
+                    { text: "Fade out", isCorrect: true },
+                    { text: "Hard cut", isCorrect: false },
+                    { text: "Sound lag", isCorrect: false }
+                ],
+                correctExplanation: "A fade out is a gradual decrease in volume.",
+                wrongExplanations: [
+                    { option: "a) Sound bridge", explanation: "A sound bridge connects two scenes with sound." },
+                    { option: "c) Hard cut", explanation: "A hard cut is an abrupt transition." },
+                    { option: "d) Sound lag", explanation: "A sound lag is a delay between sound and visual elements." }
+                ]
+            },
+            {
+                question: "The film's sound design often emphasizes:",
+                type: "single",
+                options: [
+                    { text: "Realistic space sounds", isCorrect: false },
+                    { text: "Constant background noise", isCorrect: false },
+                    { text: "Subjective experiences of the characters", isCorrect: true },
+                    { text: "Traditional action movie sound effects", isCorrect: false }
+                ],
+                correctExplanation: "The sound design focuses on what the characters hear and experience.",
+                wrongExplanations: [
+                    { option: "a) Realistic space sounds", explanation: "While realistic, the focus is more on subjective experiences." },
+                    { option: "b) Constant background noise", explanation: "The film avoids constant background noise." },
+                    { option: "d) Traditional action movie sound effects", explanation: "The film avoids traditional action sound effects." }
+                ]
+            },
+            {
+                question: "The use of sound to create a sense of disorientation during tumbling scenes is achieved through:",
+                type: "single",
+                options: [
+                    { text: "Sweetening", isCorrect: false },
+                    { text: "Layering", isCorrect: false },
+                    { text: "Sound perspective", isCorrect: true },
+                    { text: "Reverb", isCorrect: false }
+                ],
+                correctExplanation: "Sound perspective changes based on the character's movement.",
+                wrongExplanations: [
+                    { option: "a) Sweetening", explanation: "Sweetening enhances existing sounds, not creates disorientation." },
+                    { option: "b) Layering", explanation: "Layering combines audio elements, not specifically creates disorientation." },
+                    { option: "d) Reverb", explanation: "Reverb is an echo effect, not specifically related to disorientation." }
+                ]
+            },
+            {
+                question: "The film's approach to representing sound in space can be described as:",
+                type: "single",
+                options: [
+                    { text: "Strictly realistic", isCorrect: false },
+                    { text: "Completely unrealistic", isCorrect: false },
+                    { text: "A balance of realism and creative license", isCorrect: true },
+                    { text: "Inconsistent but driven by narrative", isCorrect: false }
+                ],
+                correctExplanation: "The film balances scientific accuracy with creative choices.",
+                wrongExplanations: [
+                    { option: "a) Strictly realistic", explanation: "While realistic, the film also uses creative license." },
+                    { option: "b) Completely unrealistic", explanation: "The film is not entirely unrealistic." },
+                    { option: "d) Inconsistent but driven by narrative", explanation: "The approach is consistent in balancing realism and creativity." }
+                ]
+            },
+            {
+                question: "The sound of Dr. Stone's increased heart rate and breathing during stressful moments is likely:",
+                type: "single",
+                options: [
+                    { text: "Recorded on set", isCorrect: false },
+                    { text: "Developed in post-production", isCorrect: true },
+                    { text: "Generated by computer", isCorrect: false },
+                    { text: "Taken from stock sound libraries", isCorrect: false }
+                ],
+                correctExplanation: "These sounds are typically added in post-production to enhance tension.",
+                wrongExplanations: [
+                    { option: "a) Recorded on set", explanation: "While some sounds might be recorded on set, these specific sounds are often enhanced or created in post-production." },
+                    { option: "c) Generated by computer", explanation: "While possible, these sounds are typically developed in post-production." },
+                    { option: "d) Taken from stock sound libraries", explanation: "These sounds are often custom-made for the film." }
+                ]
+            },
+            {
+                question: "The voice of Mission Control, often heard but not seen, is an example of:",
+                type: "single",
+                options: [
+                    { text: "Voice-over", isCorrect: false },
+                    { text: "Acousmatic sound", isCorrect: true },
+                    { text: "Internal sound", isCorrect: false },
+                    { text: "Ambient sound", isCorrect: false }
+                ],
+                correctExplanation: "Acousmatic sound is heard but not visually associated with its source.",
+                wrongExplanations: [
+                    { option: "a) Voice-over", explanation: "Voice-over is typically narrative and not interactive like Mission Control." },
+                    { option: "c) Internal sound", explanation: "Internal sounds are heard by characters, not necessarily acousmatic." },
+                    { option: "d) Ambient sound", explanation: "Ambient sound refers to background noise." }
+                ]
+            },
+            {
+                question: "The film's use of silence contributes to the narrative by:",
+                type: "single",
+                options: [
+                    { text: "Creating a sense of isolation and vulnerability", isCorrect: false },
+                    { text: "Emphasizing the internal thoughts and feelings of the characters", isCorrect: false },
+                    { text: "Creating contrast with moments of loud or intense sound", isCorrect: false },
+                    { text: "All of the above", isCorrect: true }
+                ],
+                correctExplanation: "Silence creates isolation, emphasizes thoughts and feelings, and contrasts with loud sounds.",
+                wrongExplanations: [
+                    { option: "a, b, c", explanation: "Each of these options is partially correct, but the best answer encompasses all aspects." }
+                ]
+            },
+            {
+                question: "The overall sound design of Gravity, which seamlessly integrates various audio elements, demonstrates:",
+                type: "single",
+                options: [
+                    { text: "Highly realistic and detailed portrayal of sound in space", isCorrect: false },
+                    { text: "Exaggerated and distorted use of sound for dramatic effect", isCorrect: false },
+                    { text: "Dreamlike and illogical use of sound", isCorrect: false },
+                    { text: "A cohesive and immersive auditory experience", isCorrect: true }
+                ],
+                correctExplanation: "The sound design combines elements to create an immersive experience.",
+                wrongExplanations: [
+                    { option: "a) Highly realistic and detailed portrayal of sound", explanation: "While realistic, the focus is on immersion." },
+                    { option: "b) Exaggerated and distorted use of sound", explanation: "The film avoids exaggeration." },
+                    { option: "c) Dreamlike and illogical use of sound", explanation: "The film's sound design is grounded in reality." }
+                ]
+            },
+            {
+                question: "Which of the following techniques are used in Gravity to create a sense of isolation?",
+                type: "multi",
+                options: [
+                    { text: "Use of silence in space scenes", isCorrect: true },
+                    { text: "Minimal dialogue between characters", isCorrect: true },
+                    { text: "Point-of-audition sound from inside spacesuits", isCorrect: true },
+                    { text: "Dramatic background music throughout", isCorrect: false }
+                ],
+                correctExplanation: "Silence, minimal dialogue, and point-of-audition sound from inside spacesuits create isolation.",
+                wrongExplanations: [
+                    { option: "d) Dramatic background music", explanation: "The film avoids dramatic background music to maintain realism." }
+                ]
+            },
+            {
+                question: "The sound design in Gravity employs which of the following to represent sound in space?",
+                type: "multi",
+                options: [
+                    { text: "Sound of vibrations transmitted through physical contact", isCorrect: true },
+                    { text: "Radio communications between characters", isCorrect: true },
+                    { text: "Loud explosions and debris impacts", isCorrect: false },
+                    { text: "Character breathing and heartbeats heard by the audience", isCorrect: true }
+                ],
+                correctExplanation: "Vibrations through physical contact, radio communications, and breathing/heartbeats are used.",
+                wrongExplanations: [
+                    { option: "c) Loud explosions", explanation: "The film avoids loud explosions in space due to the lack of sound transmission." }
+                ]
+            },
+            {
+                question: "Which of the following describes the use of music in Gravity?",
+                type: "multi",
+                options: [
+                    { text: "The music often blends seamlessly with sound effects", isCorrect: true },
+                    { text: "The score uses traditional orchestral percussion throughout", isCorrect: false },
+                    { text: "The music contributes to the sense of vastness and isolation", isCorrect: true },
+                    { text: "The music often represents the emotions of the characters", isCorrect: true }
+                ],
+                correctExplanation: "Music blends with sound effects, contributes to vastness, and represents character emotions.",
+                wrongExplanations: [
+                    { option: "b) Uses traditional orchestral percussion", explanation: "The score avoids traditional percussion." }
+                ]
+            },
+            {
+                question: "Which of the following techniques does the film's approach to sound perspective include?",
+                type: "multi",
+                options: [
+                    { text: "Muffled sounds from inside the space helmet", isCorrect: true },
+                    { text: "Changes in sound quality as characters move in relation to the camera", isCorrect: true },
+                    { text: "Use of echo to indicate distance in space", isCorrect: false },
+                    { text: "Maintaining constant volume levels for all sounds", isCorrect: false }
+                ],
+                correctExplanation: "Muffled sounds from inside spacesuits and changing sound quality as characters move are used.",
+                wrongExplanations: [
+                    { option: "c) Use of echo to indicate distance", explanation: "Echo is not a primary technique used." },
+                    { option: "d) Constant volume levels for all sounds", explanation: "Volume levels change based on the character's position." }
+                ]
+            },
+            {
+                question: "Which of the following are examples of non-diegetic sounds in Gravity?",
+                type: "single",
+                options: [
+                    { text: "Dr. Stone's breathing inside her helmet", isCorrect: false },
+                    { text: "Radio communications between characters", isCorrect: false },
+                    { text: "The film's musical score", isCorrect: true },
+                    { text: "Vibrations from space debris impacts", isCorrect: false }
+                ],
+                correctExplanation: "The musical score is not heard by characters.",
+                wrongExplanations: [
+                    { option: "a) Dr. Stone's breathing", explanation: "This is a diegetic sound heard by Dr. Stone." },
+                    { option: "b) Radio communications", explanation: "These are diegetic sounds heard by characters." },
+                    { option: "d) Vibrations from space debris impacts", explanation: "These are diegetic sounds heard through physical contact." }
+                ]
+            },
+            {
+                question: "Which of the following contribute to the theme of survival in Gravity?",
+                type: "multi",
+                options: [
+                    { text: "Emphasis on sounds related to life support systems", isCorrect: true },
+                    { text: "Use of silence to create tension and suspense", isCorrect: true },
+                    { text: "Amplification of sounds related to physical exertion", isCorrect: true },
+                    { text: "Musical underscore during moments of danger", isCorrect: true }
+                ],
+                correctExplanation: "Emphasizing life support sounds, using silence for tension, amplifying physical exertion sounds, and the musical underscore all contribute.",
+                wrongExplanations: []
+            },
+            {
+                question: "Which of the following techniques are used to create a sense of realism in the film's sound design?",
+                type: "multi",
+                options: [
+                    { text: "Absence of sound in the vacuum of space", isCorrect: true },
+                    { text: "Authentic NASA-style radio communications", isCorrect: true },
+                    { text: "Constant ambient noise throughout the film", isCorrect: false },
+                    { text: "Changes in sound perspective based on camera position", isCorrect: true }
+                ],
+                correctExplanation: "Absence of sound in space, NASA-style radio chatter, and sound perspective changes based on camera position enhance realism.",
+                wrongExplanations: [
+                    { option: "c) Ambient noise", explanation: "The film avoids constant ambient noise to maintain realism." }
+                ]
+            },
+            {
+                question: "The film's use of music accomplishes which of the following?",
+                type: "multi",
+                options: [
+                    { text: "Establishes specific themes for characters", isCorrect: true },
+                    { text: "Reduces the need for sound effects", isCorrect: false },
+                    { text: "Enhances the emotional impact of scenes", isCorrect: true },
+                    { text: "Creates smooth transitions between different locations", isCorrect: true }
+                ],
+                correctExplanation: "Music establishes character themes, enhances emotional impact, and creates smooth transitions.",
+                wrongExplanations: [
+                    { option: "b) Reduces the need for sound effects", explanation: "Music complements sound effects rather than replacing them." }
+                ]
+            },
+            {
+                question: "Which of the following describe the representation of radio communications in the film?",
+                type: "multi",
+                options: [
+                    { text: "Clear and constant throughout the film", isCorrect: false },
+                    { text: "Often distorted and breaking up", isCorrect: true },
+                    { text: "Used primarily to create comic relief", isCorrect: false },
+                    { text: "Fading as characters drift apart in space", isCorrect: true }
+                ],
+                correctExplanation: "Radio communications are distorted and breaking up, and they fade as characters drift apart.",
+                wrongExplanations: [
+                    { option: "a) Clear and constant", explanation: "Radio communications are not clear and constant." },
+                    { option: "c) Used to create relief", explanation: "While radio communications can provide relief, this is not their primary function in the film." }
+                ]
+            },
+            {
+                question: "Which of the following characterizes the overall sound design of Gravity?",
+                type: "multi",
+                options: [
+                    { text: "Innovative use of silence and sound", isCorrect: true },
+                    { text: "Heavy reliance on traditional action film sound effects", isCorrect: false },
+                    { text: "Emphasis on subjective character experiences", isCorrect: true },
+                    { text: "Seamless integration of music and sound design", isCorrect: true }
+                ],
+                correctExplanation: "Innovative use of silence and sound, emphasis on subjective experiences, and seamless integration of music and sound design characterize the overall design.",
+                wrongExplanations: [
+                    { option: "b) Heavy reliance on traditional sound effects", explanation: "The film avoids traditional sound effects." }
+                ]
+            }
+        ];
+
+        // Function to render a single question
+        function renderQuestion(question, index) {
+            const questionDiv = document.createElement("div");
+            questionDiv.className = "question";
+            questionDiv.id = `question-${index}`;
+            
+            // Create question text
+            const questionText = document.createElement("div");
+            questionText.className = "question-text";
+            questionText.innerHTML = `${index + 1}. ${question.question}`;
+            questionDiv.appendChild(questionText);
+            
+            // Create options container
+            const optionsDiv = document.createElement("div");
+            optionsDiv.className = question.type === "multi" ? "options multi-select" : "options";
+            
+            // Create options
+            question.options.forEach((option, optionIndex) => {
+                const optionDiv = document.createElement("div");
+                optionDiv.className = "option";
+                
+                const input = document.createElement("input");
+                input.type = question.type === "multi" ? "checkbox" : "radio";
+                input.name = `q${index}`;
+                input.id = `q${index}o${optionIndex}`;
+                input.dataset.correct = option.isCorrect;
+                
+                const label = document.createElement("label");
+                label.htmlFor = `q${index}o${optionIndex}`;
+                
+                const optionLetter = String.fromCharCode(97 + optionIndex);
+                
+                if (question.type === "multi") {
+                    label.innerHTML = `<span class="option-letter">${optionLetter})</span> ${option.text}`;
+                } else {
+                    label.innerHTML = `${option.text}`;
+                }
+                
+                optionDiv.appendChild(input);
+                optionDiv.appendChild(label);
+                optionsDiv.appendChild(optionDiv);
+            });
+            
+            questionDiv.appendChild(optionsDiv);
+            
+            // Create check button (for individual question feedback)
+            const checkBtn = document.createElement("button");
+            checkBtn.className = "check-btn";
+            checkBtn.textContent = "Check Answer";
+            checkBtn.addEventListener("click", () => checkAnswer(index));
+            questionDiv.appendChild(checkBtn);
+            
+            // Create explanation div (hidden initially)
+            const explanationDiv = document.createElement("div");
+            explanationDiv.className = "explanation";
+            explanationDiv.id = `explanation-${index}`;
+            
+            // Add correct answer explanation
+            const correctAnswerDiv = document.createElement("div");
+            correctAnswerDiv.className = "correct-answer";
+            correctAnswerDiv.innerHTML = `<strong>Correct Answer:</strong> ${question.correctExplanation}`;
+            explanationDiv.appendChild(correctAnswerDiv);
+            
+            // Add wrong answer explanations if any
+            if (question.wrongExplanations && question.wrongExplanations.length > 0) {
+                const wrongAnswersDiv = document.createElement("div");
+                wrongAnswersDiv.className = "wrong-answers";
+                wrongAnswersDiv.innerHTML = "<strong>Why other options are incorrect:</strong>";
+                
+                const wrongAnswersList = document.createElement("ul");
+                question.wrongExplanations.forEach(wa => {
+                    const wrongAnswerItem = document.createElement("li");
+                    wrongAnswerItem.className = "wrong-answer-item";
+                    wrongAnswerItem.innerHTML = `<strong>${wa.option}</strong>: ${wa.explanation}`;
+                    wrongAnswersList.appendChild(wrongAnswerItem);
+                });
+                
+                wrongAnswersDiv.appendChild(wrongAnswersList);
+                explanationDiv.appendChild(wrongAnswersDiv);
+            }
+            
+            questionDiv.appendChild(explanationDiv);
+            
+            return questionDiv;
+        }
+        
+        // Function to check an individual answer
+        function checkAnswer(index) {
+            const question = quizData[index];
+            const explanationDiv = document.getElementById(`explanation-${index}`);
+            
+            let isCorrect = true;
+            
+            if (question.type === "single") {
+                const selectedOption = document.querySelector(`input[name="q${index}"]:checked`);
+                if (!selectedOption) {
+                    alert("Please select an answer.");
+                    return;
+                }
+                
+                if (selectedOption.dataset.correct === "true") {
+                    selectedOption.parentElement.classList.add("highlight-correct");
+                } else {
+                    selectedOption.parentElement.classList.add("highlight-incorrect");
+                    isCorrect = false;
+                    isCorrect = false;
+                    
+                    // Highlight correct option
+                    document.querySelectorAll(`input[name="q${index}"]`).forEach(option => {
+                        if (option.dataset.correct === "true") {
+                            option.parentElement.classList.add("highlight-correct");
+                        }
+                    });
+                }
+            } else if (question.type === "multi") {
+                const options = document.querySelectorAll(`input[name="q${index}"]`);
+                let allCorrect = true;
+                
+                // Check if at least one option is selected
+                if (!Array.from(options).some(opt => opt.checked)) {
+                    alert("Please select at least one answer.");
+                    return;
+                }
+                
+                options.forEach(option => {
+                    const isOptionCorrect = option.dataset.correct === "true";
+                    const isOptionSelected = option.checked;
+                    
+                    if (isOptionCorrect && isOptionSelected) {
+                        option.parentElement.classList.add("highlight-correct");
+                    } else if (!isOptionCorrect && isOptionSelected) {
+                        option.parentElement.classList.add("highlight-incorrect");
+                        allCorrect = false;
+                    } else if (isOptionCorrect && !isOptionSelected) {
+                        option.parentElement.classList.add("highlight-correct");
+                        allCorrect = false;
+                    }
+                });
+                
+                isCorrect = allCorrect;
+            }
+            
+            // Show explanation
+            explanationDiv.style.display = "block";
+        }
+        
+        // Function to calculate and display score
+        function calculateScore() {
+            let score = 0;
+            let totalQuestions = quizData.length;
+            
+            quizData.forEach((question, index) => {
+                if (question.type === "single") {
+                    const selectedOption = document.querySelector(`input[name="q${index}"]:checked`);
+                    if (selectedOption && selectedOption.dataset.correct === "true") {
+                        score++;
+                    }
+                } else if (question.type === "multi") {
+                    const options = document.querySelectorAll(`input[name="q${index}"]`);
+                    let isQuestionCorrect = true;
+                    
+                    options.forEach(option => {
+                        const isOptionCorrect = option.dataset.correct === "true";
+                        const isOptionSelected = option.checked;
+                        
+                        if ((isOptionCorrect && !isOptionSelected) || (!isOptionCorrect && isOptionSelected)) {
+                            isQuestionCorrect = false;
+                        }
+                    });
+                    
+                    if (isQuestionCorrect) {
+                        score++;
+                    }
+                }
+            });
+            
+            return { score, totalQuestions };
+        }
+        
+        // Function to submit the entire quiz
+        function submitQuiz() {
+            // Check if all questions have been answered
+            let allAnswered = true;
+            
+            quizData.forEach((question, index) => {
+                if (question.type === "single") {
+                    const selectedOption = document.querySelector(`input[name="q${index}"]:checked`);
+                    if (!selectedOption) {
+                        allAnswered = false;
+                    }
+                } else if (question.type === "multi") {
+                    const options = document.querySelectorAll(`input[name="q${index}"]`);
+                    if (!Array.from(options).some(opt => opt.checked)) {
+                        allAnswered = false;
+                    }
+                }
+            });
+            
+            if (!allAnswered) {
+                const proceed = confirm("You haven't answered all questions. Do you want to submit anyway?");
+                if (!proceed) {
+                    return;
+                }
+            }
+            
+            // Check all answers
+            quizData.forEach((question, index) => {
+                checkAnswer(index);
+            });
+            
+            // Calculate and display score
+            const { score, totalQuestions } = calculateScore();
+            const scorePercentage = ((score / totalQuestions) * 100).toFixed(2);
+            
+            const scoreDisplay = document.getElementById("score-display");
+            scoreDisplay.innerHTML = `Your Score: ${score}/${totalQuestions} (${scorePercentage}%)`;
+            scoreDisplay.style.display = "block";
+            
+            // Disable all inputs and buttons after submission
+            document.querySelectorAll("#quiz input").forEach(input => {
+                input.disabled = true;
+            });
+            
+            document.querySelectorAll(".check-btn").forEach(btn => {
+                btn.disabled = true;
+            });
+            
+            document.getElementById("submit-quiz").disabled = true;
+        }
+        
+        // Function to show all explanations
+        function showAllExplanations() {
+            document.querySelectorAll(".explanation").forEach(explanation => {
+                explanation.style.display = "block";
+            });
+        }
+        
+        // Initialize the quiz
+        function initQuiz() {
+            const quizContainer = document.getElementById("quiz");
+            
+            // Render all questions
+            quizData.forEach((question, index) => {
+                const questionElement = renderQuestion(question, index);
+                quizContainer.appendChild(questionElement);
+            });
+            
+            // Add event listeners
+            document.getElementById("submit-quiz").addEventListener("click", submitQuiz);
+            document.getElementById("show-all-explanations").addEventListener("click", showAllExplanations);
+        }
+        
+        // Initialize the quiz when the DOM is loaded
+        document.addEventListener("DOMContentLoaded", initQuiz);
+    </script>
+</body>
+</html>
