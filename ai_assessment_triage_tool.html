@@ -590,32 +590,32 @@
             const hasCommunication = outcomes.includes('communication');
             const hasEthical = outcomes.includes('ethical-responsibility');
             
-            // Determine recommendation logic
+            // Determine recommendation logic based on updated framework
             if (outcomes.length > 2 || hasCommunication) {
-                primaryAction = 'Combined Approach';
+                primaryAction = 'Action D: Combined Approach';
                 templates = ['integrated-portfolio', 'ai-documentation', 'process-portfolio'];
             } else if (hasCritical && !hasApplied && !hasCreative) {
                 primaryAction = 'Action A or Action B';
                 templates = ['process-portfolio', 'ai-documentation'];
             } else if (hasApplied && !hasCritical && !hasCreative) {
-                primaryAction = 'Action B or Combined Approach';
+                primaryAction = 'Action B or Action D';
                 templates = ['ai-documentation', 'integrated-portfolio'];
             } else if (hasCreative) {
-                primaryAction = 'Action A or Combined Approach';
+                primaryAction = 'Action A or Action D';
                 templates = ['process-portfolio', 'integrated-portfolio'];
             } else if (hasEthical) {
-                primaryAction = 'Action B or Combined Approach';
+                primaryAction = 'Action B or Action D';
                 templates = ['ai-documentation', 'integrated-portfolio'];
             } else {
-                primaryAction = 'Combined Approach';
+                primaryAction = 'Action D: Combined Approach';
                 templates = ['integrated-portfolio', 'ai-documentation', 'process-portfolio'];
             }
             
             let actionDescriptions = '';
-            if (primaryAction.includes('Combined')) {
+            if (primaryAction.includes('Action D')) {
                 actionDescriptions = `
                     <div style="background: #e8f5e8; padding: 20px; border-radius: 10px; margin: 15px 0; color: #2c3e50;">
-                        <h4 style="color: #27ae60; margin-bottom: 10px;">🎯 Combined Approach: Process + AI Integration</h4>
+                        <h4 style="color: #27ae60; margin-bottom: 10px;">🎯 Action D: Combined Approach (Process + AI Integration)</h4>
                         <p style="color: #2c3e50;">This approach recognizes that professional practice naturally involves both process documentation and AI collaboration. Students develop AI literacy alongside critical thinking while maintaining creative agency.</p>
                         <ul style="margin: 10px 0 0 20px; color: #2c3e50;">
                             <li>Document complete learning journey with AI interaction logs</li>
@@ -683,20 +683,11 @@
             return names[templateId] || 'Template';
         }
 
-       function downloadTemplate(templateId) {
-    const templateUrls = {
-        'redesign-worksheet': 'https://drzazoom.github.io/teaching/Assessment Redesign Worksheet v2.docx',
-        'process-portfolio': 'https://drzazoom.github.io/teaching/Process Portfolio Template v2.docx',
-        'ai-documentation': 'https://drzazoom.github.io/teaching/AI Documentation Template.docx',
-        'integrated-portfolio': 'https://drzazoom.github.io/teaching/Integrated Portfolio Template.docx'
-    };
-    
-    if (templateUrls[templateId]) {
-        window.open(templateUrls[templateId], '_blank');
-    } else {
-        alert(`Template "${getTemplateName(templateId)}" is in development and will be available soon.`);
-    }
-}
+        function downloadTemplate(templateId) {
+            // In a real implementation, this would trigger actual downloads
+            // For demo purposes, we'll show which template would be downloaded
+            alert(`Downloading: ${getTemplateName(templateId)}\n\nIn the full implementation, this would download the actual template file based on your project documentation.`);
+        }
 
 
 
