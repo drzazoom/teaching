@@ -683,11 +683,21 @@
             return names[templateId] || 'Template';
         }
 
-        function downloadTemplate(templateId) {
-            // In a real implementation, this would trigger actual downloads
-            // For demo purposes, we'll show which template would be downloaded
-            alert(`Downloading: ${getTemplateName(templateId)}\n\nIn the full implementation, this would download the actual template file based on your project documentation.`);
-        }
+          function downloadTemplate(templateId) {
+    const templateUrls = {
+        'redesign-worksheet': 'https://drzazoom.github.io/teaching/Assessment Redesign Worksheet v2.docx',
+        'process-portfolio': 'https://drzazoom.github.io/teaching/Process Portfolio Template v2.docx',
+        'ai-documentation': 'https://drzazoom.github.io/teaching/AI Documentation Template.docx',
+        'integrated-portfolio': 'https://drzazoom.github.io/teaching/Integrated Portfolio Template.docx'
+    };
+    
+    if (templateUrls[templateId]) {
+        window.open(templateUrls[templateId], '_blank');
+    } else {
+        alert(`Template "${getTemplateName(templateId)}" is in development and will be available soon.`);
+    }
+}
+
 
 
 
