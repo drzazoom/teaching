@@ -1,0 +1,914 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Visual Approach & Mood Reference Guide | 视觉方法与情绪参考指南</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans SC", sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            padding: 40px;
+            border-radius: 16px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+        }
+        
+        h1 {
+            text-align: center;
+            color: #2c3e50;
+            margin-bottom: 10px;
+            font-size: 2.2em;
+        }
+        
+        .subtitle {
+            text-align: center;
+            color: #7f8c8d;
+            margin-bottom: 30px;
+            font-size: 1.1em;
+        }
+        
+        .intro-box {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 25px;
+            border-radius: 12px;
+            margin-bottom: 40px;
+        }
+        
+        .intro-box h2 {
+            margin-bottom: 15px;
+            font-size: 1.4em;
+        }
+        
+        .intro-box p {
+            margin-bottom: 10px;
+            line-height: 1.8;
+        }
+        
+        .section-header {
+            background: #2c3e50;
+            color: white;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 40px 0 20px 0;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .section-header:hover {
+            background: #34495e;
+            transform: translateX(5px);
+        }
+        
+        .section-header h2 {
+            font-size: 1.6em;
+            margin: 0;
+        }
+        
+        .toggle-icon {
+            font-size: 1.5em;
+            transition: transform 0.3s ease;
+        }
+        
+        .section-header.active .toggle-icon {
+            transform: rotate(180deg);
+        }
+        
+        .section-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+        }
+        
+        .section-content.active {
+            max-height: 5000px;
+        }
+        
+        .approach-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            padding: 20px 0;
+        }
+        
+        .approach-card {
+            background: white;
+            border: 2px solid #e0e0e0;
+            border-radius: 12px;
+            padding: 0;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            overflow: hidden;
+        }
+        
+        .approach-card:hover {
+            border-color: #667eea;
+            box-shadow: 0 8px 20px rgba(102, 126, 234, 0.3);
+            transform: translateY(-5px);
+        }
+        
+        .approach-header {
+            padding: 20px;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .approach-icon {
+            font-size: 2.5em;
+        }
+        
+        .approach-title {
+            flex: 1;
+        }
+        
+        .approach-title h3 {
+            color: #2c3e50;
+            font-size: 1.3em;
+            margin-bottom: 5px;
+        }
+        
+        .approach-title-cn {
+            color: #555;
+            font-size: 0.95em;
+        }
+        
+        .approach-details {
+            padding: 20px;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+        }
+        
+        .approach-card.active .approach-details {
+            max-height: 2000px;
+        }
+        
+        .approach-expand {
+            font-size: 1.5em;
+            color: #667eea;
+            transition: transform 0.3s ease;
+        }
+        
+        .approach-card.active .approach-expand {
+            transform: rotate(180deg);
+        }
+        
+        .description {
+            color: #555;
+            margin-bottom: 15px;
+            line-height: 1.8;
+        }
+        
+        .good-for {
+            background: #e8f5e9;
+            padding: 12px;
+            border-radius: 8px;
+            margin: 15px 0;
+            border-left: 4px solid #4caf50;
+        }
+        
+        .good-for strong {
+            color: #2e7d32;
+        }
+        
+        .examples {
+            background: #f5f5f5;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 15px 0;
+        }
+        
+        .examples h4 {
+            color: #2c3e50;
+            margin-bottom: 10px;
+        }
+        
+        .examples p {
+            font-size: 0.9em;
+            color: #666;
+            line-height: 1.7;
+        }
+        
+        .prompt-box {
+            background: #fff3e0;
+            padding: 15px;
+            border-radius: 8px;
+            border-left: 4px solid #ff9800;
+            margin-top: 15px;
+        }
+        
+        .prompt-box strong {
+            color: #e65100;
+        }
+        
+        .prompt-example {
+            font-family: 'Courier New', monospace;
+            background: white;
+            padding: 12px;
+            border-radius: 6px;
+            margin-top: 10px;
+            font-size: 0.85em;
+            color: #333;
+            border: 1px solid #ddd;
+        }
+        
+        .mood-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 20px;
+            padding: 20px 0;
+        }
+        
+        .mood-card {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 25px;
+            border-radius: 12px;
+            text-align: center;
+            color: white;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        
+        .mood-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.4);
+        }
+        
+        .mood-icon {
+            font-size: 3em;
+            margin-bottom: 10px;
+        }
+        
+        .mood-name {
+            font-size: 1.2em;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+        
+        .mood-name-cn {
+            font-size: 0.95em;
+            margin-bottom: 15px;
+            opacity: 0.9;
+        }
+        
+        .mood-description {
+            font-size: 0.9em;
+            line-height: 1.6;
+        }
+        
+        .tips-box {
+            background: #f8f9fa;
+            padding: 25px;
+            border-radius: 12px;
+            margin: 20px 0;
+            border: 2px solid #e0e0e0;
+        }
+        
+        .tips-box h3 {
+            color: #2c3e50;
+            margin-bottom: 15px;
+        }
+        
+        .tips-box ul {
+            margin-left: 25px;
+            color: #555;
+            line-height: 2;
+        }
+        
+        .tips-box ul li {
+            margin-bottom: 10px;
+        }
+        
+        .note {
+            background: #e3f2fd;
+            padding: 15px;
+            border-radius: 8px;
+            border-left: 4px solid #2196f3;
+            margin: 20px 0;
+        }
+        
+        .note strong {
+            color: #1565c0;
+        }
+        
+        .resources-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            padding: 20px 0;
+        }
+        
+        .resource-card {
+            background: white;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            padding: 20px;
+            transition: all 0.3s ease;
+        }
+        
+        .resource-card:hover {
+            border-color: #667eea;
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.2);
+        }
+        
+        .resource-card h4 {
+            color: #2c3e50;
+            margin-bottom: 10px;
+        }
+        
+        .resource-card a {
+            color: #667eea;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        
+        .resource-card a:hover {
+            text-decoration: underline;
+        }
+        
+        .resource-card p {
+            font-size: 0.9em;
+            color: #666;
+            line-height: 1.7;
+            margin-top: 8px;
+        }
+        
+        .footer {
+            text-align: center;
+            margin-top: 60px;
+            padding-top: 30px;
+            border-top: 2px solid #e0e0e0;
+            color: #7f8c8d;
+        }
+        
+        .footer p {
+            margin: 10px 0;
+            line-height: 1.8;
+        }
+        
+        .footer strong {
+            color: #2c3e50;
+        }
+        
+        @media (max-width: 768px) {
+            .container {
+                padding: 20px;
+            }
+            
+            h1 {
+                font-size: 1.6em;
+            }
+            
+            .approach-grid, .mood-grid, .resources-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Visual Approach & Mood Reference Guide</h1>
+        <p class="subtitle">视觉方法与情绪参考指南</p>
+        
+        <div class="intro-box">
+            <h2>📖 How to Use This Guide 如何使用本指南</h2>
+            <p><strong>Step 1:</strong> Choose THREE different Visual Approaches for your three posts (click to expand and learn more).</p>
+            <p><strong>第一步：</strong>为你的三个作品选择三种不同的视觉方法（点击展开了解更多）。</p>
+            <p><strong>Step 2:</strong> For each post, choose a different Mood that fits your creative vision.</p>
+            <p><strong>第二步：</strong>为每个作品选择不同的情绪。</p>
+            <p><strong>Step 3:</strong> Use the prompt tips to guide your AI image generation.</p>
+            <p><strong>第三步：</strong>使用提示技巧来指导你的AI图像生成。</p>
+        </div>
+
+        <!-- VISUAL APPROACHES SECTION -->
+        <div class="section-header active" onclick="toggleSection('visual')">
+            <h2>🎨 Visual Approaches 视觉方法 (Choose 3 Different Ones)</h2>
+            <span class="toggle-icon">▼</span>
+        </div>
+        
+        <div class="section-content active" id="visual-section">
+            <div class="approach-grid">
+                
+                <!-- Photorealistic -->
+                <div class="approach-card" onclick="toggleCard(this)">
+                    <div class="approach-header">
+                        <span class="approach-icon">📸</span>
+                        <div class="approach-title">
+                            <h3>Photorealistic Documentary</h3>
+                            <div class="approach-title-cn">纪实摄影风格</div>
+                        </div>
+                        <span class="approach-expand">▼</span>
+                    </div>
+                    <div class="approach-details">
+                        <p class="description">
+                            Images that look like real photographs. Captures reality with detail, lighting, and authentic moments. Like documentary photography or street photography.
+                            <br><br>看起来像真实照片的图像。用细节、光线和真实时刻捕捉现实。就像纪录片摄影或街头摄影。
+                        </p>
+                        <div class="good-for">
+                            <strong>Good for expressing 适合表达:</strong> Reality, authenticity, "this really happened" feeling, human connection, documentary storytelling
+                        </div>
+                        <div class="examples">
+                            <h4>Reference Artists 参考艺术家:</h4>
+                            <p>
+                                Henri Cartier-Bresson (street photography), Dorothea Lange (documentary), Fan Ho 何藩 (Hong Kong photography)
+                            </p>
+                            <p style="margin-top: 10px; font-size: 0.85em; color: #999;">
+                                Search on Wikimedia Commons: "street photography" "documentary photography" "candid moment"
+                            </p>
+                        </div>
+                        <div class="prompt-box">
+                            <strong>How to prompt AI 如何提示AI:</strong>
+                            <div class="prompt-example">
+                                "Photorealistic image, [describe your scene], natural lighting, documentary photography style, candid moment, realistic details"
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Ink Painting -->
+                <div class="approach-card" onclick="toggleCard(this)">
+                    <div class="approach-header">
+                        <span class="approach-icon">🖋️</span>
+                        <div class="approach-title">
+                            <h3>Ink Painting / Calligraphy</h3>
+                            <div class="approach-title-cn">水墨/书法</div>
+                        </div>
+                        <span class="approach-expand">▼</span>
+                    </div>
+                    <div class="approach-details">
+                        <p class="description">
+                            Traditional Chinese ink painting style. Minimalist, flowing brushstrokes, emphasis on empty space, poetic and contemplative.
+                            <br><br>中国传统水墨画风格。极简主义，流动的笔触，强调留白，诗意和沉思。
+                        </p>
+                        <div class="good-for">
+                            <strong>Good for expressing 适合表达:</strong> Poetry, Chinese aesthetics, minimalism, contemplation, tradition meeting memory, elegant simplicity
+                        </div>
+                        <div class="examples">
+                            <h4>Reference Artists 参考艺术家:</h4>
+                            <p>
+                                Qi Baishi 齐白石, Xu Beihong 徐悲鸿, Wu Guanzhong 吴冠中 (modern ink painting)
+                            </p>
+                            <p style="margin-top: 10px; font-size: 0.85em; color: #999;">
+                                Search on Palace Museum (dpm.org.cn) or Wikimedia: "Chinese ink painting" "水墨画"
+                            </p>
+                        </div>
+                        <div class="prompt-box">
+                            <strong>How to prompt AI 如何提示AI:</strong>
+                            <div class="prompt-example">
+                                "Traditional Chinese ink painting, [your subject], flowing brushstrokes, minimalist, black ink with subtle color wash, empty space, poetic atmosphere"
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Anime -->
+                <div class="approach-card" onclick="toggleCard(this)">
+                    <div class="approach-header">
+                        <span class="approach-icon">🎌</span>
+                        <div class="approach-title">
+                            <h3>Anime / Manga Style</h3>
+                            <div class="approach-title-cn">动漫风格</div>
+                        </div>
+                        <span class="approach-expand">▼</span>
+                    </div>
+                    <div class="approach-details">
+                        <p class="description">
+                            Japanese animation aesthetic. Expressive characters, dynamic composition, emotional storytelling through visual style.
+                            <br><br>日本动画美学。富有表现力的人物，动态构图，通过视觉风格进行情感叙事。
+                        </p>
+                        <div class="good-for">
+                            <strong>Good for expressing 适合表达:</strong> Energy, emotion, youth culture, dramatic moments, expressive feelings, accessible storytelling
+                        </div>
+                        <div class="examples">
+                            <h4>Reference Artists 参考艺术家:</h4>
+                            <p>
+                                Studio Ghibli (Miyazaki Hayao 宫崎骏), Makoto Shinkai 新海诚, Naoko Takeuchi 武内直子
+                            </p>
+                            <p style="margin-top: 10px; font-size: 0.85em; color: #999;">
+                                Search: "Studio Ghibli art" "anime art style" (Wikimedia has many examples)
+                            </p>
+                        </div>
+                        <div class="prompt-box">
+                            <strong>How to prompt AI 如何提示AI:</strong>
+                            <div class="prompt-example">
+                                "Anime style, [your scene], Studio Ghibli atmosphere OR dramatic manga style, expressive characters, detailed backgrounds, emotional lighting"
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Pop Art -->
+                <div class="approach-card" onclick="toggleCard(this)">
+                    <div class="approach-header">
+                        <span class="approach-icon">🎪</span>
+                        <div class="approach-title">
+                            <h3>Pop Art / Graphic Design</h3>
+                            <div class="approach-title-cn">波普艺术/平面设计</div>
+                        </div>
+                        <span class="approach-expand">▼</span>
+                    </div>
+                    <div class="approach-details">
+                        <p class="description">
+                            Bold colors, strong contrasts, graphic quality. Flat design, poster-like. Makes ordinary things feel iconic and attention-grabbing.
+                            <br><br>大胆的颜色，强烈的对比，图形质感。扁平设计，海报般。让普通事物感觉标志性和引人注目。
+                        </p>
+                        <div class="good-for">
+                            <strong>Good for expressing 适合表达:</strong> Energy, boldness, modern life, irony, making statements, visual impact, contemporary culture
+                        </div>
+                        <div class="examples">
+                            <h4>Reference Artists 参考艺术家:</h4>
+                            <p>
+                                Andy Warhol, Roy Lichtenstein, Chinese propaganda posters 中国宣传画
+                            </p>
+                            <p style="margin-top: 10px; font-size: 0.85em; color: #999;">
+                                Search on Wikimedia: "pop art" "graphic design poster" "bold graphic"
+                            </p>
+                        </div>
+                        <div class="prompt-box">
+                            <strong>How to prompt AI 如何提示AI:</strong>
+                            <div class="prompt-example">
+                                "Pop art style, [your subject], bold colors, high contrast, flat design, graphic poster quality, clean lines, striking composition"
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Sci-fi -->
+                <div class="approach-card" onclick="toggleCard(this)">
+                    <div class="approach-header">
+                        <span class="approach-icon">🚀</span>
+                        <div class="approach-title">
+                            <h3>Sci-fi / Futuristic</h3>
+                            <div class="approach-title-cn">科幻/未来</div>
+                        </div>
+                        <span class="approach-expand">▼</span>
+                    </div>
+                    <div class="approach-details">
+                        <p class="description">
+                            Technology-focused, futuristic, often uses metallic colors and clean lines. Transforms everyday experiences into future scenarios or technological metaphors.
+                            <br><br>以技术为中心，未来主义，通常使用金属色和简洁线条。将日常经历转化为未来场景或技术隐喻。
+                        </p>
+                        <div class="good-for">
+                            <strong>Good for expressing 适合表达:</strong> Transformation, technology's impact, future possibilities, distance from emotion, metaphorical storytelling
+                        </div>
+                        <div class="examples">
+                            <h4>Reference Artists 参考艺术家:</h4>
+                            <p>
+                                Syd Mead (Blade Runner design), Moebius (sci-fi comics), Liu Cixin book covers 刘慈欣
+                            </p>
+                            <p style="margin-top: 10px; font-size: 0.85em; color: #999;">
+                                Search on Internet Archive or Wikimedia: "science fiction art" "futuristic design" "concept art"
+                            </p>
+                        </div>
+                        <div class="prompt-box">
+                            <strong>How to prompt AI 如何提示AI:</strong>
+                            <div class="prompt-example">
+                                "Sci-fi style, [your scene transformed into future setting], sleek technology, metallic surfaces, neon lighting, futuristic atmosphere, clean lines"
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Fantasy -->
+                <div class="approach-card" onclick="toggleCard(this)">
+                    <div class="approach-header">
+                        <span class="approach-icon">🧚</span>
+                        <div class="approach-title">
+                            <h3>Fantasy / Magical</h3>
+                            <div class="approach-title-cn">奇幻/魔幻</div>
+                        </div>
+                        <span class="approach-expand">▼</span>
+                    </div>
+                    <div class="approach-details">
+                        <p class="description">
+                            Impossible things become real. Magic, fantasy creatures, enchanted settings. Transforms ordinary moments into fairy tales or myths.
+                            <br><br>不可能的事情变成现实。魔法、奇幻生物、魔法设定。将平凡时刻转化为童话或神话。
+                        </p>
+                        <div class="good-for">
+                            <strong>Good for expressing 适合表达:</strong> Wonder, childhood imagination, magical thinking, the extraordinary in ordinary, myth-making
+                        </div>
+                        <div class="examples">
+                            <h4>Reference Artists 参考艺术家:</h4>
+                            <p>
+                                Brian Froud (fairy art), Yoshitaka Amano 天野喜孝 (Final Fantasy), Chinese mythology paintings 中国神话绘画
+                            </p>
+                            <p style="margin-top: 10px; font-size: 0.85em; color: #999;">
+                                Search on Wikimedia: "fantasy art" "mythology painting" "fairy tale illustration"
+                            </p>
+                        </div>
+                        <div class="prompt-box">
+                            <strong>How to prompt AI 如何提示AI:</strong>
+                            <div class="prompt-example">
+                                "Fantasy style, [your scene with magical elements], enchanted atmosphere, mystical lighting, fairy tale quality, magical realism"
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Abstract -->
+                <div class="approach-card" onclick="toggleCard(this)">
+                    <div class="approach-header">
+                        <span class="approach-icon">🌫️</span>
+                        <div class="approach-title">
+                            <h3>Abstract / Minimalist</h3>
+                            <div class="approach-title-cn">抽象/极简</div>
+                        </div>
+                        <span class="approach-expand">▼</span>
+                    </div>
+                    <div class="approach-details">
+                        <p class="description">
+                            Shapes, colors, and forms that suggest feelings rather than showing specific objects. Focuses on emotion and concept over detail.
+                            <br><br>形状、颜色和形式暗示感觉，而不是显示具体物体。关注情感和概念，而不是细节。
+                        </p>
+                        <div class="good-for">
+                            <strong>Good for expressing 适合表达:</strong> Pure emotion, concepts, leaving room for imagination, universal feelings, complexity through simplicity
+                        </div>
+                        <div class="examples">
+                            <h4>Reference Artists 参考艺术家:</h4>
+                            <p>
+                                Wassily Kandinsky (abstract), Mark Rothko (color fields), Agnes Martin (minimalist grids)
+                            </p>
+                            <p style="margin-top: 10px; font-size: 0.85em; color: #999;">
+                                Search on Wikimedia: "abstract art" "minimalist art" "color field"
+                            </p>
+                        </div>
+                        <div class="prompt-box">
+                            <strong>How to prompt AI 如何提示AI:</strong>
+                            <div class="prompt-example">
+                                "Abstract minimalist composition, [colors/shapes that represent your feeling], simple forms, emotional atmosphere, minimal details, conceptual"
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- MOODS SECTION -->
+        <div class="section-header" onclick="toggleSection('moods')">
+            <h2>💭 Moods 情绪 (Choose 3 Different Ones)</h2>
+            <span class="toggle-icon">▼</span>
+        </div>
+        
+        <div class="section-content" id="moods-section">
+            <p style="margin: 20px 0; color: #555; font-size: 1.05em;">
+                <strong>Remember:</strong> You can combine any Visual Approach with any Mood. For example: "Photorealistic + Mysterious" OR "Anime + Philosophical" OR "Ink Painting + Humorous"
+                <br><strong>记住：</strong>你可以将任何视觉方法与任何情绪结合。例如："写实摄影+神秘"或"动漫+哲学"或"水墨+幽默"
+            </p>
+
+            <div class="mood-grid">
+                <div class="mood-card">
+                    <div class="mood-icon">😄</div>
+                    <div class="mood-name">Humorous / Playful</div>
+                    <div class="mood-name-cn">幽默/轻松</div>
+                    <p class="mood-description">
+                        Light-hearted, funny, not taking things too seriously. Makes people smile or laugh. Ironic or playful tone.
+                        <br><br>轻松愉快，有趣，不太严肃。让人微笑或大笑。讽刺或俏皮的语气。
+                    </p>
+                </div>
+
+                <div class="mood-card">
+                    <div class="mood-icon">🤔</div>
+                    <div class="mood-name">Mysterious / Suspenseful</div>
+                    <div class="mood-name-cn">神秘/悬疑</div>
+                    <p class="mood-description">
+                        Unclear, hints at hidden meaning, creates questions. Something not fully revealed. Intriguing and atmospheric.
+                        <br><br>不清楚，暗示隐藏的意义，产生疑问。有些东西没有完全揭示。引人入胜和有氛围感。
+                    </p>
+                </div>
+
+                <div class="mood-card">
+                    <div class="mood-icon">📖</div>
+                    <div class="mood-name">Poetic / Lyrical</div>
+                    <div class="mood-name-cn">诗意/抒情</div>
+                    <p class="mood-description">
+                        Beautiful language, flowing, metaphorical. Emphasizes beauty and feeling over facts. Like reading poetry.
+                        <br><br>优美的语言，流畅，隐喻性。强调美感和感觉而不是事实。就像读诗。
+                    </p>
+                </div>
+
+                <div class="mood-card">
+                    <div class="mood-icon">💭</div>
+                    <div class="mood-name">Philosophical / Reflective</div>
+                    <div class="mood-name-cn">哲学/沉思</div>
+                    <p class="mood-description">
+                        Thoughtful, contemplative, asking bigger questions. About meaning, life lessons, deeper understanding. Quiet wisdom.
+                        <br><br>深思熟虑，沉思，提出更大的问题。关于意义、人生教训、更深的理解。安静的智慧。
+                    </p>
+                </div>
+
+                <div class="mood-card">
+                    <div class="mood-icon">😢</div>
+                    <div class="mood-name">Melancholic / Bittersweet</div>
+                    <div class="mood-name-cn">忧郁/苦乐参半</div>
+                    <p class="mood-description">
+                        Sad but beautiful, mixed feelings. Happiness tinged with sadness. Like looking at old photos and feeling both joy and loss.
+                        <br><br>悲伤但美丽，复杂的感情。快乐中带着悲伤。就像看旧照片，既感到快乐又感到失落。
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- PRACTICAL TIPS SECTION -->
+        <div class="section-header" onclick="toggleSection('tips')">
+            <h2>💡 Practical Tips & Examples 实用技巧与例子</h2>
+            <span class="toggle-icon">▼</span>
+        </div>
+        
+        <div class="section-content" id="tips-section">
+            <div class="tips-box">
+                <h3>✓ Good Variety Example 好的变化例子</h3>
+                <ul>
+                    <li><strong>Post 1:</strong> Photorealistic Documentary + Melancholic 📸😢</li>
+                    <li><strong>Post 2:</strong> Anime/Manga Style + Humorous 🎌😄</li>
+                    <li><strong>Post 3:</strong> Abstract/Minimalist + Philosophical 🌫️💭</li>
+                </ul>
+                <p style="margin-top: 15px; color: #27ae60; font-weight: bold;">
+                    ✓ Why this works: Three completely different visual styles + three different emotional approaches
+                </p>
+            </div>
+
+            <div class="tips-box">
+                <h3>✗ Poor Variety Example 不好的变化例子</h3>
+                <ul>
+                    <li><strong>Post 1:</strong> Sci-fi/Futuristic + Mysterious 🚀🤔</li>
+                    <li><strong>Post 2:</strong> Fantasy/Magical + Mysterious 🧚🤔</li>
+                    <li><strong>Post 3:</strong> Abstract/Minimalist + Philosophical 🌫️💭</li>
+                </ul>
+                <p style="margin-top: 15px; color: #c0392b; font-weight: bold;">
+                    ✗ Why this doesn't work: Sci-fi and Fantasy are too similar (both imaginative worlds). Two posts share the same mood (Mysterious). Not enough contrast.
+                </p>
+            </div>
+
+            <div class="tips-box">
+                <h3>Combining Visual Approach + Mood 组合视觉方法+情绪</h3>
+                <p style="margin-bottom: 15px;"><strong>Some combinations work naturally together 自然搭配:</strong></p>
+                <ul>
+                    <li>Ink Painting + Poetic = very natural 水墨+诗意=非常自然</li>
+                    <li>Anime + Humorous = works well 动漫+幽默=很搭</li>
+                    <li>Photorealistic + Melancholic = classic 写实+忧郁=经典</li>
+                </ul>
+
+                <p style="margin: 20px 0;"><strong>But unexpected combinations can be MORE interesting 意外的组合可能更有趣:</strong></p>
+                <ul>
+                    <li>Sci-fi + Melancholic = technology meets sadness 科幻+忧郁=技术遇见悲伤</li>
+                    <li>Ink Painting + Humorous = tradition meets playfulness 水墨+幽默=传统遇见俏皮</li>
+                    <li>Photorealistic + Mysterious = reality made strange 写实+神秘=现实变得神秘</li>
+                </ul>
+
+                <div class="note">
+                    <strong>Tip:</strong> Don't be afraid to try unusual combinations! Sometimes the most interesting creative work comes from putting together things that don't usually go together.
+                    <br><strong>提示：</strong>不要害怕尝试不寻常的组合！有时最有趣的创意作品来自将通常不搭配的东西放在一起。
+                </div>
+            </div>
+
+            <div class="tips-box">
+                <h3>When You're Stuck 当你卡住时</h3>
+                
+                <p style="margin-bottom: 10px;"><strong>Strategy 1: Start with contrast 从对比开始</strong></p>
+                <p style="color: #555; margin-bottom: 20px;">
+                    If Post 1 is realistic and sad, make Post 2 stylized and happy. If Post 2 is modern and energetic, make Post 3 traditional and calm.
+                    <br>如果作品1是写实和悲伤的，让作品2风格化和快乐。如果作品2是现代和充满活力的，让作品3传统和平静。
+                </p>
+
+                <p style="margin-bottom: 10px;"><strong>Strategy 2: Think about who might create each post 想想谁可能创作每个作品</strong></p>
+                <p style="color: #555; margin-bottom: 20px;">
+                    Post 1 by a documentary photographer? Post 2 by a manga artist? Post 3 by a traditional painter?
+                    <br>作品1由纪实摄影师创作？作品2由漫画家创作？作品3由传统画家创作？
+                </p>
+
+                <p style="margin-bottom: 10px;"><strong>Strategy 3: Use the chatbot! 使用聊天机器人！</strong></p>
+                <p style="color: #555;">
+                    The Creative Collaboration Coach can help you brainstorm three contrasting directions based on your memory.
+                    <br>创意协作教练可以帮助你根据记忆进行头脑风暴，想出三个对比鲜明的方向。
+                </p>
+            </div>
+        </div>
+
+        <!-- RESOURCES SECTION -->
+        <div class="section-header" onclick="toggleSection('resources')">
+            <h2>🔗 Where to Find Examples 在哪里找到例子</h2>
+            <span class="toggle-icon">▼</span>
+        </div>
+        
+        <div class="section-content" id="resources-section">
+            <p style="margin: 20px 0; color: #555;">
+                All of these resources are accessible in China. Use them to see real examples of different visual approaches.
+                <br>所有这些资源在中国都可以访问。使用它们来查看不同视觉方法的真实例子。
+            </p>
+
+            <div class="resources-grid">
+                <div class="resource-card">
+                    <h4>📚 Wikimedia Commons</h4>
+                    <a href="https://commons.wikimedia.org" target="_blank">commons.wikimedia.org</a>
+                    <p>
+                        Huge collection of freely licensed images including art, photography, and historical works.
+                        <br><br>大量免费许可图像的集合，包括艺术、摄影和历史作品。
+                    </p>
+                </div>
+
+                <div class="resource-card">
+                    <h4>🏛️ Palace Museum</h4>
+                    <a href="https://www.dpm.org.cn" target="_blank">dpm.org.cn</a>
+                    <p>
+                        故宫博物院数字文物库 - Traditional Chinese art, calligraphy, and historical artifacts.
+                        <br><br>传统中国艺术、书法和历史文物。
+                    </p>
+                </div>
+
+                <div class="resource-card">
+                    <h4>🎨 National Art Museum of China</h4>
+                    <a href="http://www.namoc.org" target="_blank">namoc.org</a>
+                    <p>
+                        中国美术馆 - Modern and contemporary Chinese art.
+                        <br><br>现代和当代中国艺术。
+                    </p>
+                </div>
+
+                <div class="resource-card">
+                    <h4>📖 Internet Archive</h4>
+                    <a href="https://archive.org" target="_blank">archive.org</a>
+                    <p>
+                        Historical photographs, vintage magazines, old books with illustrations.
+                        <br><br>历史照片、复古杂志、带插图的旧书。
+                    </p>
+                </div>
+            </div>
+
+            <div class="note" style="margin-top: 20px;">
+                <strong>Search Tips 搜索技巧:</strong>
+                <ul style="margin: 10px 0 0 20px; line-height: 1.8;">
+                    <li>Search in English for broader results 用英语搜索获得更广泛的结果</li>
+                    <li>Search in Chinese for culturally specific content 用中文搜索特定文化内容</li>
+                    <li>Use artist names from this guide to find their work 使用本指南中的艺术家名字查找他们的作品</li>
+                    <li>Look at "similar images" when you find something you like 当你找到喜欢的东西时，查看"相似图像"</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- FOOTER -->
+        <div class="footer">
+            <p><strong>Remember 记住:</strong></p>
+            <p style="font-size: 1.1em; line-height: 2;">
+                🎨 Creativity = More than your first idea<br>
+                创造力 = 不止第一个想法<br><br>
+                🤝 AI is your teammate, not your tool<br>
+                AI是你的队友，不是你的工具<br><br>
+                💎 Your experience is your creative power<br>
+                你的经历是你的创造力量
+            </p>
+            <p style="margin-top: 30px; font-size: 0.95em;">
+                Need help? Use the Creative Collaboration Coach chatbot<br>
+                需要帮助？使用创意协作教练聊天机器人
+            </p>
+        </div>
+    </div>
+
+    <script>
+        function toggleSection(sectionId) {
+            const section = document.getElementById(sectionId + '-section');
+            const header = event.currentTarget;
+            
+            header.classList.toggle('active');
+            section.classList.toggle('active');
+        }
+
+        function toggleCard(card) {
+            // Prevent event bubbling
+            event.stopPropagation();
+            
+            card.classList.toggle('active');
+        }
+
+        // Open Visual Approaches section by default
+        document.addEventListener('DOMContentLoaded', function() {
+            const visualSection = document.getElementById('visual-section');
+            if (visualSection) {
+                visualSection.classList.add('active');
+            }
+        });
+    </script>
+</body>
+</html>
+                
